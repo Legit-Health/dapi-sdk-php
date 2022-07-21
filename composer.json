@@ -1,0 +1,43 @@
+{
+    "name": "legit/dapi-sdk-php",
+    "description": "SDK for integrate with the Dermatology API",
+    "type": "library",
+    "require": {
+        "php": "^8.1",
+        "symfony/http-client": "^5.3|^6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5.*",
+        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan-strict-rules": "^1.3",
+        "ekino/phpstan-banned-code": "^1.0",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/extension-installer": "^1.1",
+        "friendsofphp/php-cs-fixer": "^3.9",
+        "phpunit/php-code-coverage": "^9.2",
+        "vlucas/phpdotenv": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Legit\\Dapi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gerardo",
+            "email": "gerardo@legit.health"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "ci": [
+            "php php-cs-fixer.phar fix --config .php-cs-fixer.php --allow-risky=yes",
+            "vendor/bin/phpstan analyse --ansi --no-interaction",
+            "./vendor/bin/phpunit tests --colors"
+        ]
+    }
+}

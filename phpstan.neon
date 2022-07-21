@@ -1,0 +1,30 @@
+parameters:
+    phpVersion: 80100
+    level: 8
+    paths:
+        - src
+    reportUnmatchedIgnoredErrors: false
+    checkMissingIterableValueType: false
+    banned_code:
+        nodes:
+            -
+                type: Stmt_Echo
+                functions: null
+            -
+                type: Expr_Eval
+                functions: null
+            -
+                type: Expr_Exit
+                functions: null
+            -
+                type: Expr_FuncCall
+                functions:
+                    - dd
+                    - debug_backtrace
+                    - dump
+                    - passthru
+                    - phpinfo
+                    - print_r
+                    - proc_open
+                    - system
+                    - var_dump
