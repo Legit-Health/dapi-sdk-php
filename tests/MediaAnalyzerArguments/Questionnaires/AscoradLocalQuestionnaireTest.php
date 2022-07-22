@@ -1,8 +1,8 @@
 <?php
 
-namespace Legit\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
+namespace LegitHealth\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
 
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\AscoradLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\AscoradLocalQuestionnaire;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 

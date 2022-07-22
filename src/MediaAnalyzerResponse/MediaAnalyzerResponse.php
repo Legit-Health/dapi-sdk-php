@@ -1,10 +1,10 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerResponse;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse;
 
-use Legit\Dapi\MediaAnalyzerResponse\Conclusion\Conclusion;
-use Legit\Dapi\MediaAnalyzerResponse\ScoringSystem\ScoringSystemValues;
-use Legit\Dapi\MediaAnalyzerResponse\MediaValidity\{MediaValidity, ValidityMetric};
+use LegitHealth\Dapi\MediaAnalyzerResponse\Conclusion\Conclusion;
+use LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem\ScoringSystemValues;
+use LegitHealth\Dapi\MediaAnalyzerResponse\MediaValidity\{MediaValidity, ValidityMetric};
 
 final class MediaAnalyzerResponse
 {

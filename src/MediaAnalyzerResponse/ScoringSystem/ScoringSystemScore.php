@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerResponse\ScoringSystem;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem;
 
 final class ScoringSystemScore
 {

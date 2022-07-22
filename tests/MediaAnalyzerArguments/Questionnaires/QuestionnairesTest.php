@@ -1,10 +1,10 @@
 <?php
 
-namespace Legit\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
+namespace LegitHealth\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
 
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\ApasiLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\AuasLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\ApasiLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\AuasLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
 use PHPUnit\Framework\TestCase;
 
 class QuestionnairesTest extends TestCase

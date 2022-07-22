@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerArguments\Questionnaires;
+namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
 class AscoradLocalQuestionnaire extends Questionnaire
 {

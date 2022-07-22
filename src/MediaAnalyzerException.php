@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi;
+namespace LegitHealth\Dapi;
 
 use Throwable;
 

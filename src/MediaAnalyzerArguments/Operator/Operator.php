@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerArguments\Operator;
+namespace LegitHealth\Dapi\MediaAnalyzerArguments\Operator;
 
 enum Operator: string
 {

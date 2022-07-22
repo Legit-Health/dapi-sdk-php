@@ -1,10 +1,10 @@
 <?php
 
-namespace Legit\Dapi;
+namespace LegitHealth\Dapi;
 
-use Legit\Dapi\MediaAnalyzerArguments\FollowUpArguments;
-use Legit\Dapi\MediaAnalyzerArguments\PredictArguments;
-use Legit\Dapi\MediaAnalyzerResponse\MediaAnalyzerResponse;
+use LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\PredictArguments;
+use LegitHealth\Dapi\MediaAnalyzerResponse\MediaAnalyzerResponse;
 
 class MediaAnalyzer
 {

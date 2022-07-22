@@ -1,8 +1,8 @@
 <?php
 
-namespace Legit\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
+namespace LegitHealth\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
 
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\Ihs4LocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Ihs4LocalQuestionnaire;
 use PHPUnit\Framework\TestCase;
 
 class Ihs4LocalQuestionnaireTest extends TestCase

@@ -1,10 +1,10 @@
 <?php
 
-namespace Legit\Dapi\Tests\MediaAnalyzerArguments\Subject;
+namespace LegitHealth\Dapi\Tests\MediaAnalyzerArguments\Subject;
 
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Company;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Gender;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 

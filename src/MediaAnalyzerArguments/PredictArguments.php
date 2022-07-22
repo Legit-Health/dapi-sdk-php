@@ -1,10 +1,10 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerArguments;
+namespace LegitHealth\Dapi\MediaAnalyzerArguments;
 
-use Legit\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
-use Legit\Dapi\MediaAnalyzerArguments\Operator\Operator;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 
 final class PredictArguments extends MediaAnalyzerArguments
 {

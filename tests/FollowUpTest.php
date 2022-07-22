@@ -1,28 +1,27 @@
 <?php
 
-namespace Legit\Dapi\Tests;
+namespace LegitHealth\Dapi\Tests;
 
 use DateTimeImmutable;
 use Dotenv\Dotenv;
-use Legit\Dapi\MediaAnalyzer;
-use Legit\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
-use Legit\Dapi\MediaAnalyzerArguments\FollowUpArguments;
-use Legit\Dapi\MediaAnalyzerArguments\Operator\Operator;
-use Legit\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\ApasiLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\AscoradLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\AuasLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\DlqiQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\Ihs4LocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\PasiLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\Pure4Questionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\ScoradLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\UasLocalQuestionnaire;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Company;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Gender;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzer;
+use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
+use LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
+use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\ApasiLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\AscoradLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\AuasLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\DlqiQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Ihs4LocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\PasiLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Pure4Questionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\UasLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use PHPUnit\Framework\TestCase;
 
 class FollowUpTest extends TestCase
@@ -101,7 +100,7 @@ class FollowUpTest extends TestCase
 
         $this->assertCount(4, $response->scoringSystemsValues);
 
-        // APASI 
+        // APASI
         $apasiLocalScoringSystemValue = $response->getScoringSystemValues('APASI_LOCAL');
         $this->assertGreaterThanOrEqual(0, $apasiLocalScoringSystemValue->getScore()->calculatedScore);
         $this->assertNotNull($apasiLocalScoringSystemValue->getScore()->category);
@@ -170,15 +169,15 @@ class FollowUpTest extends TestCase
             )
         );
 
-        // DLQI 
+        // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
         $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
 
-        // PURE4 
+        // PURE4
         $pure4ScoringSystemValue = $response->getScoringSystemValues('PURE4');
         $this->assertGreaterThanOrEqual(0, $pure4ScoringSystemValue->getScore()->questionnaireScore);
 
-        // PASI_LOCAL 
+        // PASI_LOCAL
         $pasiLocalScoringSystemValue = $response->getScoringSystemValues('PASI_LOCAL');
         $this->assertGreaterThanOrEqual(0, $pasiLocalScoringSystemValue->getScore()->questionnaireScore);
     }
@@ -186,7 +185,8 @@ class FollowUpTest extends TestCase
     public function testAcne()
     {
         $currentDir = getcwd();
-        $dotenv = Dotenv::createImmutable($currentDir, '.env.local');;
+        $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
+        ;
         $dotenv->load();
         $mediaAnalyzer = new MediaAnalyzer(
             $_ENV['API_URL'],
@@ -254,7 +254,7 @@ class FollowUpTest extends TestCase
 
         $this->assertCount(2, $response->scoringSystemsValues);
 
-        // ALEGI 
+        // ALEGI
         $alegiScoringSystemValue = $response->getScoringSystemValues('ALEGI');
         $this->assertGreaterThanOrEqual(0, $alegiScoringSystemValue->getScore()->calculatedScore);
         $this->assertNotNull($alegiScoringSystemValue->getScore()->category);
@@ -285,7 +285,7 @@ class FollowUpTest extends TestCase
         );
         $this->assertGreaterThan(0, $alegiScoringSystemValue->getFacetCalculatedValue('lesionNumber')->value);
 
-        // DLQI 
+        // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
         $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
     }
@@ -359,7 +359,7 @@ class FollowUpTest extends TestCase
 
         $this->assertCount(3, $response->scoringSystemsValues);
 
-        // AUAS_LOCAL 
+        // AUAS_LOCAL
         $auasLocalScoringSystemValue = $response->getScoringSystemValues('AUAS_LOCAL');
         $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->getScore()->calculatedScore);
         $this->assertNotNull($auasLocalScoringSystemValue->getScore()->category);
@@ -384,11 +384,11 @@ class FollowUpTest extends TestCase
             )
         );
 
-        // DLQI 
+        // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
         $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
 
-        // UAS_LOCAL 
+        // UAS_LOCAL
         $uasLocalScoringSystemValue = $response->getScoringSystemValues('UAS_LOCAL');
         $this->assertGreaterThanOrEqual(0, $uasLocalScoringSystemValue->getScore()->questionnaireScore);
     }
@@ -461,7 +461,7 @@ class FollowUpTest extends TestCase
 
         $this->assertCount(2, $response->scoringSystemsValues);
 
-        // ASCORAD_LOCAL 
+        // ASCORAD_LOCAL
         $ascoradLocalScoringSystemValue = $response->getScoringSystemValues('ASCORAD_LOCAL');
         $this->assertGreaterThanOrEqual(0, $ascoradLocalScoringSystemValue->getScore()->calculatedScore);
         $this->assertNotNull($ascoradLocalScoringSystemValue->getScore()->category);
@@ -562,7 +562,7 @@ class FollowUpTest extends TestCase
             )
         );
 
-        // DLQI 
+        // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
         $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
     }
@@ -635,7 +635,7 @@ class FollowUpTest extends TestCase
 
         $this->assertCount(3, $response->scoringSystemsValues);
 
-        // AIHS4_LOCAL 
+        // AIHS4_LOCAL
         $aihs4LocalScoringSystemValue = $response->getScoringSystemValues('AIHS4_LOCAL');
         $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getScore()->calculatedScore);
         $this->assertNotNull($aihs4LocalScoringSystemValue->getScore()->category);
@@ -644,11 +644,11 @@ class FollowUpTest extends TestCase
         $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetCalculatedValue('drainingTunnelNumber')->value);
         $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetCalculatedValue('noduleNumber')->value);
 
-        // DLQI 
+        // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
         $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
 
-        // IHS4_LOCAL 
+        // IHS4_LOCAL
         $ihs4LocalScoringSystemValue = $response->getScoringSystemValues('IHS4_LOCAL');
         $this->assertGreaterThanOrEqual(0, $ihs4LocalScoringSystemValue->getScore()->questionnaireScore);
     }

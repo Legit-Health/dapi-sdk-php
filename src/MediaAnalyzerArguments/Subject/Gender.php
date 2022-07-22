@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerArguments\Subject;
+namespace LegitHealth\Dapi\MediaAnalyzerArguments\Subject;
 
 enum Gender: string
 {

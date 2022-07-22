@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerResponse;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse;
 
 final class PreliminaryFindingsValue
 {

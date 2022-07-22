@@ -1,16 +1,16 @@
 <?php
 
-namespace Legit\Dapi\Tests;
+namespace LegitHealth\Dapi\Tests;
 
 use DateTimeImmutable;
 use Dotenv\Dotenv;
-use Legit\Dapi\MediaAnalyzer;
-use Legit\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Company;
-use Legit\Dapi\MediaAnalyzerArguments\Operator\Operator;
-use Legit\Dapi\MediaAnalyzerArguments\PredictArguments;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Gender;
-use Legit\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzer;
+use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
+use LegitHealth\Dapi\MediaAnalyzerArguments\PredictArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use PHPUnit\Framework\TestCase;
 
 class PredictTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerArguments\PreviousMedia;
+namespace LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia;
 
 use DateTimeInterface;
 

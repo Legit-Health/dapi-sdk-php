@@ -1,8 +1,8 @@
 <?php
 
-namespace Legit\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
+namespace LegitHealth\Dapi\Tests\MediaAnalyzerArguments\Questionnaires;
 
-use Legit\Dapi\MediaAnalyzerArguments\Questionnaires\ApasiLocalQuestionnaire;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\ApasiLocalQuestionnaire;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 

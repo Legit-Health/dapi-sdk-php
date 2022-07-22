@@ -1,8 +1,8 @@
 <?php
 
-namespace Legit\Dapi;
+namespace LegitHealth\Dapi;
 
-use Legit\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerArguments\BodySite;
+namespace LegitHealth\Dapi\MediaAnalyzerArguments\BodySite;
 
 enum BodySiteCode: string
 {

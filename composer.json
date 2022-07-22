@@ -1,5 +1,5 @@
 {
-    "name": "legit/dapi-sdk-php",
+    "name": "legit-health/dapi-sdk-php",
     "description": "SDK for integrate with the Dermatology API",
     "license": "MIT",
     "type": "library",
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Legit\\Dapi\\": "src/"
+            "LegitHealth\\Dapi\\": "src/"
         }
     },
     "authors": [

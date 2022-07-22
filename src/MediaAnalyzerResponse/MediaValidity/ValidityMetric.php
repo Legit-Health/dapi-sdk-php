@@ -1,6 +1,6 @@
 <?php
 
-namespace Legit\Dapi\MediaAnalyzerResponse\MediaValidity;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse\MediaValidity;
 
 final class ValidityMetric
 {
