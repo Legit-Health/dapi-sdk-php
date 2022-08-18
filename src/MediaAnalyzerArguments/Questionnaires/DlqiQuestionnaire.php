@@ -28,7 +28,7 @@ class DlqiQuestionnaire extends Questionnaire
         $this->ensureIsInRange($question10, 0, 3, 'question10');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'DLQI';
     }

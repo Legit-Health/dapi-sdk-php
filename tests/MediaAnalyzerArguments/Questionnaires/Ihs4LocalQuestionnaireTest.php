@@ -20,6 +20,6 @@ class Ihs4LocalQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $ihs4LocalQuestionnaire = new Ihs4LocalQuestionnaire(5, 4, 2, );
-        $this->assertEquals('IHS4_LOCAL', $ihs4LocalQuestionnaire->getName());
+        $this->assertEquals('IHS4_LOCAL', $ihs4LocalQuestionnaire::getName());
     }
 }

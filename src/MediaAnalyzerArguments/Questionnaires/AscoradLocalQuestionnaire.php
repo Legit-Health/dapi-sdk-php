@@ -14,7 +14,7 @@ class AscoradLocalQuestionnaire extends Questionnaire
         $this->ensureIsInRange($sleeplessness, 0, 10, 'sleeplessness');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'ASCORAD_LOCAL';
     }

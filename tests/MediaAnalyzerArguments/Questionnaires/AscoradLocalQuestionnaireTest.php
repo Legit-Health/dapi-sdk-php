@@ -132,6 +132,6 @@ class AscoradLocalQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $ascoradLocalQuestionnaire = new AscoradLocalQuestionnaire(27, 2, 2);
-        $this->assertEquals('ASCORAD_LOCAL', $ascoradLocalQuestionnaire->getName());
+        $this->assertEquals('ASCORAD_LOCAL', $ascoradLocalQuestionnaire::getName());
     }
 }

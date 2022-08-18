@@ -9,7 +9,7 @@ class ApasiLocalQuestionnaire extends Questionnaire
         $this->ensureIsInRange($surface, 0, 6, 'surface');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'APASI_LOCAL';
     }

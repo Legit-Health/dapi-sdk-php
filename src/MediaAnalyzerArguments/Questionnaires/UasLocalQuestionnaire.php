@@ -9,7 +9,7 @@ class UasLocalQuestionnaire extends Questionnaire
         $this->ensureIsInRange($itchiness, 0, 3, 'itchiness');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'UAS_LOCAL';
     }

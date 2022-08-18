@@ -11,7 +11,7 @@ class Ihs4LocalQuestionnaire extends Questionnaire
     ) {
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'IHS4_LOCAL';
     }

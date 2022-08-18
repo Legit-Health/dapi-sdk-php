@@ -16,7 +16,7 @@ class PasiLocalQuestionnaire extends Questionnaire
         $this->ensureIsInRange($desquamation, 0, 4, 'desquamation');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'PASI_LOCAL';
     }

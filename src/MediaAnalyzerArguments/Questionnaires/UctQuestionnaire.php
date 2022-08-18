@@ -16,7 +16,7 @@ class UctQuestionnaire extends Questionnaire
         $this->ensureIsInRange($question4Uct, 0, 4, 'question4Uct');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'UCT';
     }

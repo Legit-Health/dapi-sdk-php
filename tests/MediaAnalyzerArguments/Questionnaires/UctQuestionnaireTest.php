@@ -129,6 +129,6 @@ class UctQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $uctQuestionnaire = new UctQuestionnaire(1, 2, 0, 4);
-        $this->assertEquals('UCT', $uctQuestionnaire->getName());
+        $this->assertEquals('UCT', $uctQuestionnaire::getName());
     }
 }

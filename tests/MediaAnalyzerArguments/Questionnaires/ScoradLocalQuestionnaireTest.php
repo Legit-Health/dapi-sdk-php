@@ -426,6 +426,6 @@ class ScoradLocalQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $scoradLocalQuestionnaire = new ScoradLocalQuestionnaire(25, 3, 3, 3, 2, 1, 3, 5, 10);
-        $this->assertEquals('SCORAD_LOCAL', $scoradLocalQuestionnaire->getName());
+        $this->assertEquals('SCORAD_LOCAL', $scoradLocalQuestionnaire::getName());
     }
 }

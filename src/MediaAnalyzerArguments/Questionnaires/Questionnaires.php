@@ -16,7 +16,7 @@ class Questionnaires
     {
         $json = [];
         foreach ($this->questionnaires as $questionnaire) {
-            $json[$questionnaire->getName()] = $questionnaire->toArray();
+            $json[$questionnaire::getName()] = $questionnaire->toArray();
         }
         return $json;
     }

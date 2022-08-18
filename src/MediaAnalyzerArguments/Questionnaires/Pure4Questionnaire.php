@@ -16,7 +16,7 @@ class Pure4Questionnaire extends Questionnaire
         $this->ensureIsInRange($question4, 0, 1, 'question4');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'PURE4';
     }

@@ -14,7 +14,7 @@ class ApulsiQuestionnaire extends Questionnaire
         $this->ensureIsInRange($odorApusa, 0, 1, 'odor_apusa');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'APULSI';
     }

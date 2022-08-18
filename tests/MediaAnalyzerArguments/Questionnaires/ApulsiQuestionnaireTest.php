@@ -88,6 +88,6 @@ class ApulsiQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $apulsiQuestionnaire = new ApulsiQuestionnaire(2, 1, 0);
-        $this->assertEquals('APULSI', $apulsiQuestionnaire->getName());
+        $this->assertEquals('APULSI', $apulsiQuestionnaire::getName());
     }
 }

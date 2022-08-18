@@ -28,7 +28,7 @@ class ScovidQuestionnaire extends Questionnaire
         $this->ensureIsInRange($otherSkinProblems, 0, 3, 'otherSkinProblems');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'SCOVID';
     }

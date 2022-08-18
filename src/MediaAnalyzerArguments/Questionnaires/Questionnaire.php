@@ -7,7 +7,7 @@ use InvalidArgumentException;
 abstract class Questionnaire
 {
     abstract public function toArray(): array;
-    abstract public function getName(): string;
+    abstract public static function getName(): string;
 
     protected function ensureIsInRange(int $value, int $min, int $max, string $name): void
     {

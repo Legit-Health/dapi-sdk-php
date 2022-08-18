@@ -54,6 +54,6 @@ class AuasLocalQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $auasLocalQuestionnaire = new AuasLocalQuestionnaire(3);
-        $this->assertEquals('AUAS_LOCAL', $auasLocalQuestionnaire->getName());
+        $this->assertEquals('AUAS_LOCAL', $auasLocalQuestionnaire::getName());
     }
 }

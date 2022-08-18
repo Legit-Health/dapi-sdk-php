@@ -79,6 +79,6 @@ class ScovidQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $questionnaire = new ScovidQuestionnaire(8, 10, 0, 1, 2, 3, 0, 1, 2, 3);
-        $this->assertEquals('SCOVID', $questionnaire->getName());
+        $this->assertEquals('SCOVID', $questionnaire::getName());
     }
 }

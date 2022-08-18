@@ -26,7 +26,7 @@ class ScoradLocalQuestionnaire extends Questionnaire
         $this->ensureIsInRange($sleeplessness, 0, 10, 'sleeplessness');
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'SCORAD_LOCAL';
     }

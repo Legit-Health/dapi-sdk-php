@@ -107,6 +107,6 @@ class Pure4QuestionnaireTest extends TestCase
     public function testGetName()
     {
         $pure4Questionnaire = new Pure4Questionnaire(0, 1, 0, 0);
-        $this->assertEquals('PURE4', $pure4Questionnaire->getName());
+        $this->assertEquals('PURE4', $pure4Questionnaire::getName());
     }
 }

@@ -189,6 +189,6 @@ class PasiLocalQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $pasiLocalQuestionnaire = new PasiLocalQuestionnaire(5, 1, 2, 3);
-        $this->assertEquals('PASI_LOCAL', $pasiLocalQuestionnaire->getName());
+        $this->assertEquals('PASI_LOCAL', $pasiLocalQuestionnaire::getName());
     }
 }

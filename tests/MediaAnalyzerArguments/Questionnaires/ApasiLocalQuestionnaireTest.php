@@ -46,6 +46,6 @@ class ApasiLocalQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $apasiLocalQuestionnaire = new ApasiLocalQuestionnaire(5);
-        $this->assertEquals('APASI_LOCAL', $apasiLocalQuestionnaire->getName());
+        $this->assertEquals('APASI_LOCAL', $apasiLocalQuestionnaire::getName());
     }
 }

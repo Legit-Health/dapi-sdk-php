@@ -96,6 +96,6 @@ class DlqiQuestionnaireTest extends TestCase
     public function testGetName()
     {
         $dlqiQuestionnaire = new DlqiQuestionnaire(1, 2, 3, 1, 2, 3, 1, 2, 3, 3);
-        $this->assertEquals('DLQI', $dlqiQuestionnaire->getName());
+        $this->assertEquals('DLQI', $dlqiQuestionnaire::getName());
     }
 }
