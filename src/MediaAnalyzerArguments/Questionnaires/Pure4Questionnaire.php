@@ -5,15 +5,15 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 class Pure4Questionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $question1,
-        public readonly int $question2,
-        public readonly int $question3,
-        public readonly int $question4
+        public readonly int $question1_pure,
+        public readonly int $question2_pure,
+        public readonly int $question3_pure,
+        public readonly int $question4_pure
     ) {
-        $this->ensureIsInRange($question1, 0, 1, 'question1');
-        $this->ensureIsInRange($question2, 0, 1, 'question2');
-        $this->ensureIsInRange($question3, 0, 1, 'question3');
-        $this->ensureIsInRange($question4, 0, 1, 'question4');
+        $this->ensureIsInRange($question1_pure, 0, 1, 'question1_pure');
+        $this->ensureIsInRange($question2_pure, 0, 1, 'question2_pure');
+        $this->ensureIsInRange($question3_pure, 0, 1, 'question3_pure');
+        $this->ensureIsInRange($question4_pure, 0, 1, 'question4_pure');
     }
 
     public static function getName(): string
@@ -24,10 +24,10 @@ class Pure4Questionnaire extends Questionnaire
     public function toArray(): array
     {
         return [
-            'question1_pure' => $this->question1,
-            'question2_pure' => $this->question2,
-            'question3_pure' => $this->question3,
-            'question4_pure' => $this->question4
+            'question1_pure' => $this->question1_pure,
+            'question2_pure' => $this->question2_pure,
+            'question3_pure' => $this->question3_pure,
+            'question4_pure' => $this->question4_pure
         ];
     }
 }

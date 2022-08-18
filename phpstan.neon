@@ -28,3 +28,7 @@ parameters:
                     - proc_open
                     - system
                     - var_dump
+    ignoreErrors:
+        - 
+            message: '#Unsafe usage of new static\(\).#'
+            path: %rootDir%/../../../src/MediaAnalyzerArguments/Questionnaires/Questionnaire.php 

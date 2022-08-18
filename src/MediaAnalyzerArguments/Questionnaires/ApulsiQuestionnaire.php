@@ -5,13 +5,13 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 class ApulsiQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $erythemaSurface,
-        public readonly int $painApusa,
-        public readonly int $odorApusa
+        public readonly int $erythema_surface,
+        public readonly int $pain_apusa,
+        public readonly int $odor_apusa
     ) {
-        $this->ensureIsInRange($erythemaSurface, 0, 6, 'erythemaSurface');
-        $this->ensureIsInRange($painApusa, 0, 1, 'painApusa');
-        $this->ensureIsInRange($odorApusa, 0, 1, 'odor_apusa');
+        $this->ensureIsInRange($erythema_surface, 0, 6, 'erythema_surface');
+        $this->ensureIsInRange($pain_apusa, 0, 1, 'pain_apusa');
+        $this->ensureIsInRange($odor_apusa, 0, 1, 'odor_apusa');
     }
 
     public static function getName(): string
@@ -22,9 +22,9 @@ class ApulsiQuestionnaire extends Questionnaire
     public function toArray(): array
     {
         return [
-            'erythema_surface' => $this->erythemaSurface,
-            'pain_apusa' => $this->painApusa,
-            'odor_apusa' => $this->odorApusa,
+            'erythema_surface' => $this->erythema_surface,
+            'pain_apusa' => $this->pain_apusa,
+            'odor_apusa' => $this->odor_apusa,
         ];
     }
 }

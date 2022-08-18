@@ -13,8 +13,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => 0,
-                'itchiness' => 0,
+                'surface_value' => 0,
+                'itchiness_scorad' => 0,
                 'sleeplessness' => 0
             ]);
         } catch (Throwable) {
@@ -25,8 +25,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => 100,
-                'itchiness' => 10,
+                'surface_value' => 100,
+                'itchiness_scorad' => 10,
                 'sleeplessness' => 10
             ]);
         } catch (Throwable) {
@@ -37,8 +37,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => random_int(0, 100),
-                'itchiness' => random_int(0, 10),
+                'surface_value' => random_int(0, 100),
+                'itchiness_scorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable) {
@@ -49,8 +49,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => 101,
-                'itchiness' => 11,
+                'surface_value' => 101,
+                'itchiness_scorad' => 11,
                 'sleeplessness' => 11
             ]);
         } catch (Throwable) {
@@ -61,8 +61,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => 100,
-                'itchiness' => 11,
+                'surface_value' => 100,
+                'itchiness_scorad' => 11,
                 'sleeplessness' => 11
             ]);
         } catch (Throwable) {
@@ -73,8 +73,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => 100,
-                'itchiness' => 10,
+                'surface_value' => 100,
+                'itchiness_scorad' => 10,
                 'sleeplessness' => 11
             ]);
         } catch (Throwable) {
@@ -85,8 +85,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => -1,
-                'itchiness' => -1,
+                'surface_value' => -1,
+                'itchiness_scorad' => -1,
                 'sleeplessness' => -1
             ]);
         } catch (Throwable) {
@@ -97,8 +97,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => 0,
-                'itchiness' => -1,
+                'surface_value' => 0,
+                'itchiness_scorad' => -1,
                 'sleeplessness' => -1
             ]);
         } catch (Throwable) {
@@ -109,8 +109,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface' => 0,
-                'itchiness' => 0,
+                'surface_value' => 0,
+                'itchiness_scorad' => 0,
                 'sleeplessness' => -1
             ]);
         } catch (Throwable) {
