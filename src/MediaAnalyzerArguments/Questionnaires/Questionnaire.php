@@ -18,7 +18,7 @@ abstract class Questionnaire
         return new static(...$args);
     }
 
-    protected function ensureIsInRange(int $value, int $min, int $max, string $name): void
+    protected function ensureIsInRange(int|float $value, int $min, int $max, string $name): void
     {
         if ($value >= $min && $value <= $max) {
             return;

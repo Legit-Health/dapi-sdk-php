@@ -5,7 +5,7 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 class ScoradLocalQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $surface_value,
+        public readonly float $surface_value,
         public readonly int $erythema,
         public readonly int $swelling,
         public readonly int $crusting,
