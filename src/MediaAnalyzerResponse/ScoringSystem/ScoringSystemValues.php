@@ -29,4 +29,18 @@ class ScoringSystemValues
             is_numeric($calculatedValue) ? \floatval($calculatedValue) : null
         );
     }
+
+    public function getFacets(): array
+    {
+        $facets = [];
+        foreach (array_keys($this->values['facets']) as $facetCode) {
+            $scoringSystemFacetCalculatedValue = $this->getFacetCalculatedValue($facetCode);
+            $facets[] =  [
+                'facet' => $facetCode,
+                'value' => $scoringSystemFacetCalculatedValue->value,
+                'intensity' => $scoringSystemFacetCalculatedValue->intensity
+            ];
+        }
+        return $facets;
+    }
 }

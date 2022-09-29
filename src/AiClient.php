@@ -50,14 +50,12 @@ class AiClient
 
             $statusCode = $response->getStatusCode();
             if ($statusCode !== 200) {
-                throw new MediaAnalyzerException('Invalid response', $statusCode);
+                throw new MediaAnalyzerException('Invalid response from server', $statusCode);
             }
             return $response->toArray();
         } catch (Throwable $exception) {
             throw new MediaAnalyzerException(
-                $exception->getMessage(),
-                MediaAnalyzerException::AI_CLIENT,
-                $exception
+                $exception->getMessage()
             );
         }
     }
