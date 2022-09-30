@@ -40,6 +40,10 @@ $predictArguments = new PredictArguments(
 Once you've created a `PredictArguments` object, you can send the request in this way:
 
 ```php
+$mediaAnalyzer = new MediaAnalyzer(
+    $apiUrl,
+    $apiKey
+);
 $response = $mediaAnalyzer->predict($predictArguments);
 ```
 
@@ -125,6 +129,10 @@ Unlike diagnostic support requests, follow-up requests supports the following ad
 Once you've created a `PredictArguments` object, you can send the request in this way:
 
 ```php
+$mediaAnalyzer = new MediaAnalyzer(
+    $apiUrl,
+    $apiKey
+);
 $response = $mediaAnalyzer->followUp($followUpArguments);
 ```
 
