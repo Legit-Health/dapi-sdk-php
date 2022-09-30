@@ -126,7 +126,7 @@ Unlike diagnostic support requests, follow-up requests supports the following ad
 
 - `questionnaires` is an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires` with the values of the scoring systems to be evaluated.
 
-Once you've created a `PredictArguments` object, you can send the request in this way:
+Once you've created a `FollowUpArguments` object, you can send the request in this way:
 
 ```php
 $mediaAnalyzer = new MediaAnalyzer(
@@ -158,7 +158,13 @@ Besides, it contains two extra properties:
 
 The `ScoringSystemValues` contains all the information about a scoring system, for example, APASI_LOCAL.
 
-You can access to the value of each facet using the method `getFacetCalculatedValue(string $facetCode)`.
+You can access to the value of one scoring system using the method `getScoringSystemValues`:
+
+```php
+$apasiLocalScoringSystemValue = $response->getScoringSystemValues('APASI_LOCAL');
+```
+
+Once you have one object of the class `ScoringSystemValues`, you can access to the value of each facet using the method `getFacetCalculatedValue(string $facetCode)`.
 
 By invoking the method `getFacets` you will get an array of facets. Each element in this list is an array with three keys:
 
@@ -172,18 +178,14 @@ Finally, you can access to the score of the scoring system through its property 
 - `calculatedScore`, for those scoring systems whose calculation depends on facets that are computed by our AI algorithm: APASI_LOCAL, APULSI, ASCORAD_LOCAL and AUAS_LOCAL.
 - `questionnaire`, for those scoring systems whose calculations not depends on facet computed by our AI algorithm, for example, DLQI.
 
-For example, if you want to extract the values for `APASI_LOCAL`, you can do the following:
+Full example:
 
 ```php
 $apasiLocalScoringSystemValue = $response->getScoringSystemValues('APASI_LOCAL');
 
 $apasiScore = $apasiLocalScoringSystemValue->getScore()->calculatedScore;
 $apasiSeverityCategory = $apasiLocalScoringSystemValue->getScore()->category;
-```
 
-You can also extract the values of each calculated facet that make up the APASI:
-
-```php
 $apasiLocalScoringSystemValue = $response->getScoringSystemValues('APASI_LOCAL');
 $desquamation = $apasiLocalScoringSystemValue->getFacetCalculatedValue('desquamation');
 $desquamationValue = $desquamation->value; // A value between 0 and 4 as the PASI states
