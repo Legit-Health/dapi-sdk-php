@@ -112,12 +112,7 @@ class PredictTest extends TestCase
 
         $this->assertCount(0, $response->scoringSystemsValues);
 
-        $this->assertGreaterThan(0, count($response->conclusions));
-        $firstConclusion = $response->conclusions[0];
-        $this->assertNotEmpty($firstConclusion->conclusionCode->code);
-        $this->assertNotEmpty($firstConclusion->conclusionCode->codeSystem);
-        $this->assertNotEmpty($firstConclusion->pathologyCode);
-        $this->assertNotEmpty($firstConclusion->probability);
+        $this->assertCount(0, $response->conclusions);
 
         $this->assertGreaterThan(0, $response->iaSeconds);
     }
