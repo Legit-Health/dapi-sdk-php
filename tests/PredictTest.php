@@ -70,6 +70,58 @@ class PredictTest extends TestCase
         $this->assertGreaterThan(0, $response->iaSeconds);
     }
 
+    public function testInvalidImage()
+    {
+        $currentDir = getcwd();
+        $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
+        $dotenv->load();
+        $mediaAnalyzer = new MediaAnalyzer(
+            $_ENV['API_URL'],
+            $_ENV['API_KEY']
+        );
+
+        $fileToUpload = $currentDir . '/tests/resources/invalid.png';
+        $image = file_get_contents($fileToUpload);
+
+        $predictArguments = new PredictArguments(
+            $this->generateRandom(),
+            content: base64_encode($image)
+        );
+
+        $response = $mediaAnalyzer->predict($predictArguments);
+
+        $preliminaryFindings = $response->preliminaryFindings;
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isPreMalignantSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsBiopsySuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsSpecialistsAttention);
+
+        $this->assertNotEmpty($response->modality);
+
+        $mediaValidity = $response->mediaValidity;
+        $this->assertFalse($mediaValidity->isValid);
+        $this->assertGreaterThan(0, $mediaValidity->diqaScore);
+        $failedMetric = $mediaValidity->getFailedValidityMetric();
+        $this->assertEquals('isDermatologyDomain', $failedMetric->name);
+
+        $metrics = $response->metricsValue;
+        $this->assertGreaterThan(0, $metrics->sensitivity);
+        $this->assertGreaterThan(0, $metrics->specificity);
+
+        $this->assertNull($response->explainabilityMedia);
+
+        $this->assertCount(0, $response->scoringSystemsValues);
+
+        $this->assertGreaterThan(0, count($response->conclusions));
+        $firstConclusion = $response->conclusions[0];
+        $this->assertNotEmpty($firstConclusion->conclusionCode->code);
+        $this->assertNotEmpty($firstConclusion->conclusionCode->codeSystem);
+        $this->assertNotEmpty($firstConclusion->pathologyCode);
+        $this->assertNotEmpty($firstConclusion->probability);
+
+        $this->assertGreaterThan(0, $response->iaSeconds);
+    }
+
     public function testPredictWithAllFields()
     {
         $currentDir = getcwd();

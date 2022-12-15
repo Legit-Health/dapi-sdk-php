@@ -29,7 +29,7 @@ final class MediaAnalyzerResponse
         $preliminaryFindings = new PreliminaryFindingsValue(
             $json['preliminaryFindings']['hasConditionSuspicion'],
             $json['preliminaryFindings']['isPreMalignantSuspicion'],
-            $json['preliminaryFindings']['isMalignantSuspicion'],
+            $json['preliminaryFindings']['isMalignantSuspicion'] ?? null,
             $json['preliminaryFindings']['needsBiopsySuspicion'],
             $json['preliminaryFindings']['needsSpecialistsAttention'],
         );
