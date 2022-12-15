@@ -77,6 +77,7 @@ class FollowUpTest extends TestCase
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isPreMalignantSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isMalignantSuspicion);
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsBiopsySuspicion);
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsSpecialistsAttention);
 
@@ -231,6 +232,7 @@ class FollowUpTest extends TestCase
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isPreMalignantSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isMalignantSuspicion);
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsBiopsySuspicion);
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsSpecialistsAttention);
 

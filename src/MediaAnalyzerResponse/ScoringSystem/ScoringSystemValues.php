@@ -34,7 +34,7 @@ class ScoringSystemValues
     {
         $facets = [];
         foreach (array_keys($this->values['facets']) as $facetCode) {
-            $scoringSystemFacetCalculatedValue = $this->getFacetCalculatedValue($facetCode);
+            $scoringSystemFacetCalculatedValue = $this->getFacetCalculatedValue("$facetCode");
             $facets[] =  [
                 'facet' => $facetCode,
                 'value' => $scoringSystemFacetCalculatedValue->value,
