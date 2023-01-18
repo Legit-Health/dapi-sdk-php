@@ -9,17 +9,24 @@ use Throwable;
 
 class AiClient
 {
-    private HttpClientInterface $httpClient;
+    public function __construct(private HttpClientInterface $httpClient)
+    {
+    }
 
-    public function __construct(
+    public static function createWithParams(
         string $baseUri,
         string $analyzerApiKey
-    ) {
-        $this->httpClient = HttpClient::createForBaseUri($baseUri, [
+    ): self {
+        return new self(HttpClient::createForBaseUri($baseUri, [
             'headers' => [
                 'x-api-key' => $analyzerApiKey
             ]
-        ]);
+        ]));
+    }
+
+    public static function createWithHttpClient(HttpClientInterface $httpClient): self
+    {
+        return new self($httpClient);
     }
 
     /**

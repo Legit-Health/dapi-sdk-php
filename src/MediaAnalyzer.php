@@ -5,16 +5,24 @@ namespace LegitHealth\Dapi;
 use LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpArguments;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PredictArguments;
 use LegitHealth\Dapi\MediaAnalyzerResponse\MediaAnalyzerResponse;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MediaAnalyzer
 {
-    private AiClient $aiClient;
+    public function __construct(private AiClient $aiClient)
+    {
+    }
 
-    public function __construct(
+    public static function createWithParams(
         string $baseUri,
         string $analyzerApiKey
-    ) {
-        $this->aiClient = new AiClient($baseUri, $analyzerApiKey);
+    ): self {
+        return new self(AiClient::createWithParams($baseUri, $analyzerApiKey));
+    }
+
+    public static function createWithHttpClient(HttpClientInterface $httpClient): self
+    {
+        return new self(AiClient::createWithHttpClient($httpClient));
     }
 
     public function predict(PredictArguments $arguments): MediaAnalyzerResponse

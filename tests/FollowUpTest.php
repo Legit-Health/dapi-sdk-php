@@ -31,7 +31,7 @@ class FollowUpTest extends TestCase
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );
@@ -189,11 +189,10 @@ class FollowUpTest extends TestCase
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         ;
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );
-
 
         $currentDir = getcwd();
         $fileToUpload = $currentDir . '/tests/resources/acne.jpg';
@@ -297,7 +296,7 @@ class FollowUpTest extends TestCase
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );
@@ -400,7 +399,7 @@ class FollowUpTest extends TestCase
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );
@@ -574,7 +573,7 @@ class FollowUpTest extends TestCase
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );

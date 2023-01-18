@@ -2,3 +2,4 @@ vendor/
 coverage/
 .phpunit.cache/
 .env.local
+.php-cs-fixer.cache

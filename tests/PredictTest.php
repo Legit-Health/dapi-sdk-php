@@ -20,7 +20,7 @@ class PredictTest extends TestCase
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );
@@ -75,7 +75,7 @@ class PredictTest extends TestCase
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );
@@ -102,7 +102,7 @@ class PredictTest extends TestCase
         $this->assertFalse($mediaValidity->isValid);
         $this->assertGreaterThan(0, $mediaValidity->diqaScore);
         $failedMetric = $mediaValidity->getFailedValidityMetric();
-        $this->assertEquals('isDermatologyDomain', $failedMetric->name);
+        $this->assertEquals('hasEnoughQuality', $failedMetric->name);
 
         $metrics = $response->metricsValue;
         $this->assertGreaterThan(0, $metrics->sensitivity);
@@ -122,7 +122,7 @@ class PredictTest extends TestCase
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
         $dotenv->load();
-        $mediaAnalyzer = new MediaAnalyzer(
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
             $_ENV['API_KEY']
         );
