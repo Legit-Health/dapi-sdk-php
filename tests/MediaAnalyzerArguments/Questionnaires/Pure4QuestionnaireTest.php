@@ -13,10 +13,10 @@ class Pure4QuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new Pure4Questionnaire(...[
-                'question1_pure' => 0,
-                'question2_pure' => 0,
-                'question3_pure' => 0,
-                'question4_pure' => 0,
+                'question1Pure' => 0,
+                'question2Pure' => 0,
+                'question3Pure' => 0,
+                'question4Pure' => 0,
             ]);
         } catch (Throwable) {
             $exceptionIsThrown = true;
@@ -26,10 +26,10 @@ class Pure4QuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new Pure4Questionnaire(...[
-                'question1_pure' => 1,
-                'question2_pure' => 1,
-                'question3_pure' => 1,
-                'question4_pure' => 1,
+                'question1Pure' => 1,
+                'question2Pure' => 1,
+                'question3Pure' => 1,
+                'question4Pure' => 1,
             ]);
         } catch (Throwable) {
             $exceptionIsThrown = true;
@@ -39,10 +39,10 @@ class Pure4QuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new Pure4Questionnaire(...[
-                'question1_pure' => random_int(0, 1),
-                'question2_pure' => random_int(0, 1),
-                'question3_pure' => random_int(0, 1),
-                'question4_pure' => random_int(0, 1)
+                'question1Pure' => random_int(0, 1),
+                'question2Pure' => random_int(0, 1),
+                'question3Pure' => random_int(0, 1),
+                'question4Pure' => random_int(0, 1)
             ]);
         } catch (Throwable) {
             $exceptionIsThrown = true;
@@ -59,7 +59,7 @@ class Pure4QuestionnaireTest extends TestCase
                 new Pure4Questionnaire(...$arr);
             } catch (Throwable $e) {
                 $exceptionIsThrown = true;
-                $this->assertEquals(sprintf('question%d_pure should be between 0 and 1', $i + 1), $e->getMessage());
+                $this->assertEquals(sprintf('question%dPure should be between 0 and 1', $i + 1), $e->getMessage());
             }
             $this->assertTrue($exceptionIsThrown);
         }
@@ -74,7 +74,7 @@ class Pure4QuestionnaireTest extends TestCase
                 new Pure4Questionnaire(...$arr);
             } catch (Throwable $e) {
                 $exceptionIsThrown = true;
-                $this->assertEquals(sprintf('question%d_pure should be between 0 and 1', $i + 1), $e->getMessage());
+                $this->assertEquals(sprintf('question%dPure should be between 0 and 1', $i + 1), $e->getMessage());
             }
             $this->assertTrue($exceptionIsThrown);
         }
@@ -85,23 +85,23 @@ class Pure4QuestionnaireTest extends TestCase
         $pure4Questionnaire = new Pure4Questionnaire(0, 1, 0, 1);
         $arr = $pure4Questionnaire->toArray();
         $this->assertCount(4, array_keys($arr));
-        $this->assertEquals(0, $arr['question1_pure']);
-        $this->assertEquals(1, $arr['question2_pure']);
-        $this->assertEquals(0, $arr['question3_pure']);
-        $this->assertEquals(1, $arr['question4_pure']);
+        $this->assertEquals(0, $arr['question1Pure']);
+        $this->assertEquals(1, $arr['question2Pure']);
+        $this->assertEquals(0, $arr['question3Pure']);
+        $this->assertEquals(1, $arr['question4Pure']);
 
         $pure4Questionnaire = new Pure4Questionnaire(...[
-            'question1_pure' => 1,
-            'question2_pure' => 0,
-            'question3_pure' => 1,
-            'question4_pure' => 0,
+            'question1Pure' => 1,
+            'question2Pure' => 0,
+            'question3Pure' => 1,
+            'question4Pure' => 0,
         ]);
         $arr = $pure4Questionnaire->toArray();
         $this->assertCount(4, array_keys($arr));
-        $this->assertEquals(1, $arr['question1_pure']);
-        $this->assertEquals(0, $arr['question2_pure']);
-        $this->assertEquals(1, $arr['question3_pure']);
-        $this->assertEquals(0, $arr['question4_pure']);
+        $this->assertEquals(1, $arr['question1Pure']);
+        $this->assertEquals(0, $arr['question2Pure']);
+        $this->assertEquals(1, $arr['question3Pure']);
+        $this->assertEquals(0, $arr['question4Pure']);
     }
 
     public function testGetName()

@@ -7,7 +7,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;
 
-class AiClient
+final class AiClient
 {
     public function __construct(private HttpClientInterface $httpClient)
     {

@@ -5,12 +5,12 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 class AscoradLocalQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly float $surface_value,
-        public readonly int $itchiness_scorad,
+        public readonly float $surfaceValue,
+        public readonly int $itchinessScorad,
         public readonly int $sleeplessness
     ) {
-        $this->ensureIsInRange($surface_value, 0, 100, 'surface_value');
-        $this->ensureIsInRange($itchiness_scorad, 0, 10, 'itchiness_scorad');
+        $this->ensureIsInRange($surfaceValue, 0, 100, 'surfaceValue');
+        $this->ensureIsInRange($itchinessScorad, 0, 10, 'itchinessScorad');
         $this->ensureIsInRange($sleeplessness, 0, 10, 'sleeplessness');
     }
 
@@ -22,8 +22,8 @@ class AscoradLocalQuestionnaire extends Questionnaire
     public function toArray(): array
     {
         return [
-            'itchiness_scorad' => $this->itchiness_scorad,
-            'surface_value' => $this->surface_value,
+            'itchinessScorad' => $this->itchinessScorad,
+            'surfaceValue' => $this->surfaceValue,
             'sleeplessness' => $this->sleeplessness,
         ];
     }

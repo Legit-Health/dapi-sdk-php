@@ -5,15 +5,15 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 class UctQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $question1_uct,
-        public readonly int $question2_uct,
-        public readonly int $question3_uct,
-        public readonly int $question4_uct,
+        public readonly int $question1Uct,
+        public readonly int $question2Uct,
+        public readonly int $question3Uct,
+        public readonly int $question4Uct,
     ) {
-        $this->ensureIsInRange($question1_uct, 0, 4, 'question1_uct');
-        $this->ensureIsInRange($question2_uct, 0, 4, 'question2_uct');
-        $this->ensureIsInRange($question3_uct, 0, 4, 'question3_uct');
-        $this->ensureIsInRange($question4_uct, 0, 4, 'question4_uct');
+        $this->ensureIsInRange($question1Uct, 0, 4, 'question1Uct');
+        $this->ensureIsInRange($question2Uct, 0, 4, 'question2Uct');
+        $this->ensureIsInRange($question3Uct, 0, 4, 'question3Uct');
+        $this->ensureIsInRange($question4Uct, 0, 4, 'question4Uct');
     }
 
     public static function getName(): string
@@ -24,10 +24,10 @@ class UctQuestionnaire extends Questionnaire
     public function toArray(): array
     {
         return [
-            'question1_uct' => $this->question1_uct,
-            'question2_uct' => $this->question2_uct,
-            'question3_uct' => $this->question3_uct,
-            'question4_uct' => $this->question4_uct,
+            'question1Uct' => $this->question1Uct,
+            'question2Uct' => $this->question2Uct,
+            'question3Uct' => $this->question3Uct,
+            'question4Uct' => $this->question4Uct,
         ];
     }
 }

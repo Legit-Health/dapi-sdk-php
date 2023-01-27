@@ -13,14 +13,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 0,
+                'surfaceValue' => 0,
                 'erythema' => 0,
                 'swelling' => 0,
                 'crusting' => 0,
                 'excoriation' => 0,
                 'lichenification' => 0,
                 'dryness' => 0,
-                'itchiness_scorad' => 0,
+                'itchinessScorad' => 0,
                 'sleeplessness' => 0
             ]);
         } catch (Throwable) {
@@ -31,14 +31,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 100,
+                'surfaceValue' => 100,
                 'erythema' => 3,
                 'swelling' => 3,
                 'crusting' => 3,
                 'excoriation' => 3,
                 'lichenification' => 3,
                 'dryness' => 3,
-                'itchiness_scorad' => 10,
+                'itchinessScorad' => 10,
                 'sleeplessness' => 10
             ]);
         } catch (Throwable) {
@@ -49,14 +49,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => random_int(0, 100),
+                'surfaceValue' => random_int(0, 100),
                 'erythema' => random_int(0, 3),
                 'swelling' => random_int(0, 3),
                 'crusting' => random_int(0, 3),
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable) {
@@ -67,52 +67,52 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 101,
+                'surfaceValue' => 101,
                 'erythema' => random_int(0, 3),
                 'swelling' => random_int(0, 3),
                 'crusting' => random_int(0, 3),
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
             $exceptionIsThrown = true;
-            $this->assertEquals('surface_value should be between 0 and 100', $e->getMessage());
+            $this->assertEquals('surfaceValue should be between 0 and 100', $e->getMessage());
         }
         $this->assertTrue($exceptionIsThrown);
 
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => -1,
+                'surfaceValue' => -1,
                 'erythema' => random_int(0, 3),
                 'swelling' => random_int(0, 3),
                 'crusting' => random_int(0, 3),
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
             $exceptionIsThrown = true;
-            $this->assertEquals('surface_value should be between 0 and 100', $e->getMessage());
+            $this->assertEquals('surfaceValue should be between 0 and 100', $e->getMessage());
         }
         $this->assertTrue($exceptionIsThrown);
 
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 4,
                 'swelling' => random_int(0, 3),
                 'crusting' => random_int(0, 3),
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -124,14 +124,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => -1,
                 'swelling' => random_int(0, 3),
                 'crusting' => random_int(0, 3),
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -143,14 +143,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 4,
                 'crusting' => random_int(0, 3),
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -162,14 +162,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => -1,
                 'crusting' => random_int(0, 3),
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -181,14 +181,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 4,
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -200,14 +200,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => -1,
                 'excoriation' => random_int(0, 3),
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -219,14 +219,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 4,
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -238,14 +238,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => -1,
                 'lichenification' => random_int(0, 3),
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -257,14 +257,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => 4,
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -276,14 +276,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => -1,
                 'dryness' => random_int(0, 3),
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -295,14 +295,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => 3,
                 'dryness' => 4,
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -314,14 +314,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => 3,
                 'dryness' => -1,
-                'itchiness_scorad' => random_int(0, 10),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
@@ -333,52 +333,52 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => 3,
                 'dryness' => 1,
-                'itchiness_scorad' => 11,
+                'itchinessScorad' => 11,
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
             $exceptionIsThrown = true;
-            $this->assertEquals('itchiness_scorad should be between 0 and 10', $e->getMessage());
+            $this->assertEquals('itchinessScorad should be between 0 and 10', $e->getMessage());
         }
         $this->assertTrue($exceptionIsThrown);
 
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => 3,
                 'dryness' => 1,
-                'itchiness_scorad' => -1,
+                'itchinessScorad' => -1,
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable $e) {
             $exceptionIsThrown = true;
-            $this->assertEquals('itchiness_scorad should be between 0 and 10', $e->getMessage());
+            $this->assertEquals('itchinessScorad should be between 0 and 10', $e->getMessage());
         }
         $this->assertTrue($exceptionIsThrown);
 
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => 3,
                 'dryness' => 1,
-                'itchiness_scorad' => 1,
+                'itchinessScorad' => 1,
                 'sleeplessness' => 11
             ]);
         } catch (Throwable $e) {
@@ -390,14 +390,14 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new ScoradLocalQuestionnaire(...[
-                'surface_value' => 50,
+                'surfaceValue' => 50,
                 'erythema' => 1,
                 'swelling' => 1,
                 'crusting' => 2,
                 'excoriation' => 2,
                 'lichenification' => 3,
                 'dryness' => 1,
-                'itchiness_scorad' => 1,
+                'itchinessScorad' => 1,
                 'sleeplessness' => -1
             ]);
         } catch (Throwable $e) {
@@ -412,8 +412,8 @@ class ScoradLocalQuestionnaireTest extends TestCase
         $scoradLocalQuestionnaire = new ScoradLocalQuestionnaire(25, 0, 1, 2, 3, 0, 1, 5, 6);
         $arr = $scoradLocalQuestionnaire->toArray();
         $this->assertCount(9, array_keys($arr));
-        $this->assertEquals(25, $arr['surface_value']);
-        $this->assertEquals(5, $arr['itchiness_scorad']);
+        $this->assertEquals(25, $arr['surfaceValue']);
+        $this->assertEquals(5, $arr['itchinessScorad']);
         $this->assertEquals(6, $arr['sleeplessness']);
         $this->assertEquals(0, $arr['erythema']);
         $this->assertEquals(1, $arr['swelling']);

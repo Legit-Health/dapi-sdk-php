@@ -58,7 +58,7 @@ class PredictTest extends TestCase
 
         $this->assertNull($response->explainabilityMedia);
 
-        $this->assertCount(0, $response->scoringSystemsValues);
+        $this->assertCount(0, $response->scoringSystemsResults);
 
         $this->assertGreaterThan(0, count($response->conclusions));
         $firstConclusion = $response->conclusions[0];
@@ -110,7 +110,7 @@ class PredictTest extends TestCase
 
         $this->assertNull($response->explainabilityMedia);
 
-        $this->assertCount(0, $response->scoringSystemsValues);
+        $this->assertCount(0, $response->scoringSystemsResults);
 
         $this->assertCount(0, $response->conclusions);
 
@@ -172,7 +172,7 @@ class PredictTest extends TestCase
 
         $this->assertNull($response->explainabilityMedia);
 
-        $this->assertCount(0, $response->scoringSystemsValues);
+        $this->assertCount(0, $response->scoringSystemsResults);
 
         $this->assertGreaterThan(0, count($response->conclusions));
         $firstConclusion = $response->conclusions[0];

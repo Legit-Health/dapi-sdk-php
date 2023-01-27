@@ -7,7 +7,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\PredictArguments;
 use LegitHealth\Dapi\MediaAnalyzerResponse\MediaAnalyzerResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class MediaAnalyzer
+final class MediaAnalyzer
 {
     public function __construct(private AiClient $aiClient)
     {

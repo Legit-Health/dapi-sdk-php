@@ -3,6 +3,7 @@
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Subject;
 
 use DateTimeInterface;
+use LegitHealth\Dapi\Utils\FloatUtils;
 
 class Subject
 {
@@ -22,8 +23,8 @@ class Subject
         return [
             'identifier' => $this->id,
             'gender' => $this->gender?->value,
-            'height' => is_numeric($this->height) ? \floatval($this->height) : null,
-            'weight' => is_numeric($this->weight) ? \floatval($this->weight) : null,
+            'height' => FloatUtils::floatOrNull($this->height),
+            'weight' => FloatUtils::floatOrNull($this->weight),
             'birthdate' => $this->birthdate?->format('Y-m-d'),
             'generalPractitioner' => [
                 'identifier' => $this->practitionerId

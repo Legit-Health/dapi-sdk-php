@@ -4,7 +4,7 @@ namespace LegitHealth\Dapi;
 
 use Exception;
 
-class MediaAnalyzerException extends Exception
+final class MediaAnalyzerException extends Exception
 {
     public function __construct(
         string $message,

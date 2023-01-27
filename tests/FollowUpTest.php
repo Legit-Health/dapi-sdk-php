@@ -99,71 +99,71 @@ class FollowUpTest extends TestCase
 
         $this->assertNotEmpty($response->explainabilityMedia);
 
-        $this->assertCount(4, $response->scoringSystemsValues);
+        $this->assertCount(4, $response->scoringSystemsResults);
 
         // APASI
-        $apasiLocalScoringSystemValue = $response->getScoringSystemValues('APASI_LOCAL');
-        $this->assertGreaterThanOrEqual(0, $apasiLocalScoringSystemValue->getScore()->calculatedScore);
-        $this->assertNotNull($apasiLocalScoringSystemValue->getScore()->category);
+        $apasiLocalScoringSystemValue = $response->getScoringSystemResult('APASI_LOCAL');
+        $this->assertGreaterThanOrEqual(0, $apasiLocalScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($apasiLocalScoringSystemValue->getScore()->category);
 
-        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetCalculatedValue('desquamation')->intensity);
+        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetScore('desquamation')->intensity);
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('desquamation')->intensity,
+            $apasiLocalScoringSystemValue->getFacetScore('desquamation')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('desquamation')->value,
+            $apasiLocalScoringSystemValue->getFacetScore('desquamation')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(4)
             )
         );
 
-        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetCalculatedValue('erythema')->intensity);
+        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetScore('erythema')->intensity);
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('erythema')->intensity,
+            $apasiLocalScoringSystemValue->getFacetScore('erythema')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('erythema')->value,
+            $apasiLocalScoringSystemValue->getFacetScore('erythema')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(4)
             )
         );
 
-        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetCalculatedValue('induration')->intensity);
+        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetScore('induration')->intensity);
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('induration')->intensity,
+            $apasiLocalScoringSystemValue->getFacetScore('induration')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('induration')->value,
+            $apasiLocalScoringSystemValue->getFacetScore('induration')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(4)
             )
         );
 
-        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetCalculatedValue('surface')->intensity);
+        $this->assertNotNull($apasiLocalScoringSystemValue->getFacetScore('surface')->intensity);
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('surface')->intensity,
+            $apasiLocalScoringSystemValue->getFacetScore('surface')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $apasiLocalScoringSystemValue->getFacetCalculatedValue('surface')->value,
+            $apasiLocalScoringSystemValue->getFacetScore('surface')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(6)
@@ -171,23 +171,85 @@ class FollowUpTest extends TestCase
         );
 
         // DLQI
-        $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
-        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
+        $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
+        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($dlqiScoringSystemValue->getScore()->category);
+        foreach (range(1, 10) as $number) {
+            $facetCode = sprintf('question%d', $number);
+            $facetScore = $dlqiScoringSystemValue->getFacetScore($facetCode);
+            $this->assertNull($facetScore->intensity);
+            $this->assertThat(
+                $facetScore->value,
+                $this->logicalAnd(
+                    $this->greaterThanOrEqual(0),
+                    $this->lessThanOrEqual(3)
+                )
+            );
+        }
 
         // PURE4
-        $pure4ScoringSystemValue = $response->getScoringSystemValues('PURE4');
-        $this->assertGreaterThanOrEqual(0, $pure4ScoringSystemValue->getScore()->questionnaireScore);
+        $pure4ScoringSystemValue = $response->getScoringSystemResult('PURE4');
+        $this->assertGreaterThanOrEqual(0, $pure4ScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($pure4ScoringSystemValue->getScore()->category);
+        foreach (range(1, 4) as $number) {
+            $facetCode = sprintf('question%dPure', $number);
+            $facetScore = $pure4ScoringSystemValue->getFacetScore($facetCode);
+            $this->assertNull($facetScore->intensity);
+            $this->assertThat(
+                $facetScore->value,
+                $this->logicalAnd(
+                    $this->greaterThanOrEqual(0),
+                    $this->lessThanOrEqual(3)
+                )
+            );
+        }
 
         // PASI_LOCAL
-        $pasiLocalScoringSystemValue = $response->getScoringSystemValues('PASI_LOCAL');
-        $this->assertGreaterThanOrEqual(0, $pasiLocalScoringSystemValue->getScore()->questionnaireScore);
+        $pasiLocalScoringSystemValue = $response->getScoringSystemResult('PASI_LOCAL');
+        $this->assertGreaterThanOrEqual(0, $pasiLocalScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($pasiLocalScoringSystemValue->getScore()->category);
+
+        $this->assertNull($pasiLocalScoringSystemValue->getFacetScore('desquamation')->intensity);
+        $this->assertThat(
+            $pasiLocalScoringSystemValue->getFacetScore('desquamation')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(4)
+            )
+        );
+
+        $this->assertNull($pasiLocalScoringSystemValue->getFacetScore('erythema')->intensity);
+        $this->assertThat(
+            $pasiLocalScoringSystemValue->getFacetScore('erythema')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(4)
+            )
+        );
+
+        $this->assertNull($pasiLocalScoringSystemValue->getFacetScore('induration')->intensity);
+        $this->assertThat(
+            $pasiLocalScoringSystemValue->getFacetScore('induration')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(4)
+            )
+        );
+
+        $this->assertNull($pasiLocalScoringSystemValue->getFacetScore('surface')->intensity);
+        $this->assertThat(
+            $pasiLocalScoringSystemValue->getFacetScore('surface')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(6)
+            )
+        );
     }
 
     public function testAcne()
     {
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
-        ;
         $dotenv->load();
         $mediaAnalyzer = MediaAnalyzer::createWithParams(
             $_ENV['API_URL'],
@@ -253,42 +315,55 @@ class FollowUpTest extends TestCase
 
         $this->assertNotEmpty($response->explainabilityMedia);
 
-        $this->assertCount(2, $response->scoringSystemsValues);
+        $this->assertCount(2, $response->scoringSystemsResults);
 
         // ALEGI
-        $alegiScoringSystemValue = $response->getScoringSystemValues('ALEGI');
-        $this->assertGreaterThanOrEqual(0, $alegiScoringSystemValue->getScore()->calculatedScore);
+        $alegiScoringSystemValue = $response->getScoringSystemResult('ALEGI');
+        $this->assertGreaterThanOrEqual(0, $alegiScoringSystemValue->getScore()->score);
         $this->assertNotNull($alegiScoringSystemValue->getScore()->category);
 
-        $this->assertNotNull($alegiScoringSystemValue->getFacetCalculatedValue('lesionDensity')->intensity);
+        $this->assertNotNull($alegiScoringSystemValue->getFacetScore('lesionDensity')->intensity);
         $this->assertThat(
-            $alegiScoringSystemValue->getFacetCalculatedValue('lesionDensity')->intensity,
+            $alegiScoringSystemValue->getFacetScore('lesionDensity')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $alegiScoringSystemValue->getFacetCalculatedValue('lesionDensity')->value,
+            $alegiScoringSystemValue->getFacetScore('lesionDensity')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(4)
             )
         );
 
-        $this->assertNotNull($alegiScoringSystemValue->getFacetCalculatedValue('lesionNumber')->intensity);
+        $this->assertNotNull($alegiScoringSystemValue->getFacetScore('lesionNumber')->intensity);
         $this->assertThat(
-            $alegiScoringSystemValue->getFacetCalculatedValue('lesionNumber')->intensity,
+            $alegiScoringSystemValue->getFacetScore('lesionNumber')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
-        $this->assertGreaterThan(0, $alegiScoringSystemValue->getFacetCalculatedValue('lesionNumber')->value);
+        $this->assertGreaterThan(0, $alegiScoringSystemValue->getFacetScore('lesionNumber')->value);
 
         // DLQI
-        $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
-        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
+        $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
+        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($dlqiScoringSystemValue->getScore()->category);
+        foreach (range(1, 10) as $number) {
+            $facetCode = sprintf('question%d', $number);
+            $facetScore = $dlqiScoringSystemValue->getFacetScore($facetCode);
+            $this->assertNull($facetScore->intensity);
+            $this->assertThat(
+                $facetScore->value,
+                $this->logicalAnd(
+                    $this->greaterThanOrEqual(0),
+                    $this->lessThanOrEqual(3)
+                )
+            );
+        }
     }
 
     public function testUrticariaFollowUp()
@@ -358,27 +433,20 @@ class FollowUpTest extends TestCase
 
         $this->assertNotEmpty($response->explainabilityMedia);
 
-        $this->assertCount(3, $response->scoringSystemsValues);
+        $this->assertCount(3, $response->scoringSystemsResults);
 
         // AUAS_LOCAL
-        $auasLocalScoringSystemValue = $response->getScoringSystemValues('AUAS_LOCAL');
-        $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->getScore()->calculatedScore);
+        $auasLocalScoringSystemValue = $response->getScoringSystemResult('AUAS_LOCAL');
+        $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->getScore()->score);
         $this->assertNotNull($auasLocalScoringSystemValue->getScore()->category);
 
-        $this->assertNotNull($auasLocalScoringSystemValue->getFacetCalculatedValue('hiveNumber')->intensity);
-        $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->getFacetCalculatedValue('hiveNumber')->value);
-        $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->getFacetCalculatedValue('hiveNumber')->intensity);
+        $this->assertNotNull($auasLocalScoringSystemValue->getFacetScore('hiveNumber')->intensity);
+        $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->getFacetScore('hiveNumber')->value);
+        $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->getFacetScore('hiveNumber')->intensity);
 
-        $this->assertNotNull($auasLocalScoringSystemValue->getFacetCalculatedValue('itchiness')->intensity);
+        $this->assertNull($auasLocalScoringSystemValue->getFacetScore('itchiness')->intensity);
         $this->assertThat(
-            $auasLocalScoringSystemValue->getFacetCalculatedValue('itchiness')->intensity,
-            $this->logicalAnd(
-                $this->greaterThanOrEqual(0),
-                $this->lessThanOrEqual(100)
-            )
-        );
-        $this->assertThat(
-            $auasLocalScoringSystemValue->getFacetCalculatedValue('erythema')->value,
+            $auasLocalScoringSystemValue->getFacetScore('hiveNumber')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
@@ -386,12 +454,44 @@ class FollowUpTest extends TestCase
         );
 
         // DLQI
-        $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
-        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
+        $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
+        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($dlqiScoringSystemValue->getScore()->category);
+        foreach (range(1, 10) as $number) {
+            $facetCode = sprintf('question%d', $number);
+            $facetScore = $dlqiScoringSystemValue->getFacetScore($facetCode);
+            $this->assertNull($facetScore->intensity);
+            $this->assertThat(
+                $facetScore->value,
+                $this->logicalAnd(
+                    $this->greaterThanOrEqual(0),
+                    $this->lessThanOrEqual(3)
+                )
+            );
+        }
+
 
         // UAS_LOCAL
-        $uasLocalScoringSystemValue = $response->getScoringSystemValues('UAS_LOCAL');
-        $this->assertGreaterThanOrEqual(0, $uasLocalScoringSystemValue->getScore()->questionnaireScore);
+        $uasLocalScoringSystemValue = $response->getScoringSystemResult('UAS_LOCAL');
+        $this->assertGreaterThanOrEqual(0, $uasLocalScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($uasLocalScoringSystemValue->getScore()->category);
+
+        $this->assertNull($uasLocalScoringSystemValue->getFacetScore('hiveNumber')->intensity);
+        $this->assertThat(
+            $uasLocalScoringSystemValue->getFacetScore('hiveNumber')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0)
+            )
+        );
+
+        $this->assertNull($uasLocalScoringSystemValue->getFacetScore('itchiness')->intensity);
+        $this->assertThat(
+            $uasLocalScoringSystemValue->getFacetScore('itchiness')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(4)
+            )
+        );
     }
 
     public function testAtopicDermatitis()
@@ -460,112 +560,152 @@ class FollowUpTest extends TestCase
 
         $this->assertNotEmpty($response->explainabilityMedia);
 
-        $this->assertCount(2, $response->scoringSystemsValues);
+        $this->assertCount(2, $response->scoringSystemsResults);
 
         // ASCORAD_LOCAL
-        $ascoradLocalScoringSystemValue = $response->getScoringSystemValues('ASCORAD_LOCAL');
-        $this->assertGreaterThanOrEqual(0, $ascoradLocalScoringSystemValue->getScore()->calculatedScore);
+        $ascoradLocalScoringSystemValue = $response->getScoringSystemResult('ASCORAD_LOCAL');
+        $this->assertGreaterThanOrEqual(0, $ascoradLocalScoringSystemValue->getScore()->score);
         $this->assertNotNull($ascoradLocalScoringSystemValue->getScore()->category);
 
-        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetCalculatedValue('crusting')->intensity);
+        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetScore('crusting')->intensity);
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('crusting')->intensity,
+            $ascoradLocalScoringSystemValue->getFacetScore('crusting')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('crusting')->value,
+            $ascoradLocalScoringSystemValue->getFacetScore('crusting')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
             )
         );
 
-        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetCalculatedValue('dryness')->intensity);
+        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetScore('dryness')->intensity);
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('dryness')->intensity,
+            $ascoradLocalScoringSystemValue->getFacetScore('dryness')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('dryness')->value,
+            $ascoradLocalScoringSystemValue->getFacetScore('dryness')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
             )
         );
 
-        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetCalculatedValue('erythema')->intensity);
+        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetScore('erythema')->intensity);
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('erythema')->intensity,
+            $ascoradLocalScoringSystemValue->getFacetScore('erythema')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('erythema')->value,
+            $ascoradLocalScoringSystemValue->getFacetScore('erythema')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
             )
         );
 
-        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetCalculatedValue('excoriation')->intensity);
+        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetScore('excoriation')->intensity);
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('excoriation')->intensity,
+            $ascoradLocalScoringSystemValue->getFacetScore('excoriation')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('excoriation')->value,
+            $ascoradLocalScoringSystemValue->getFacetScore('excoriation')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
             )
         );
 
-        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetCalculatedValue('lichenification')->intensity);
+        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetScore('lichenification')->intensity);
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('lichenification')->intensity,
+            $ascoradLocalScoringSystemValue->getFacetScore('lichenification')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('lichenification')->value,
+            $ascoradLocalScoringSystemValue->getFacetScore('lichenification')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
             )
         );
 
-        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetCalculatedValue('swelling')->intensity);
+        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetScore('swelling')->intensity);
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('swelling')->intensity,
+            $ascoradLocalScoringSystemValue->getFacetScore('swelling')->intensity,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(100)
             )
         );
         $this->assertThat(
-            $ascoradLocalScoringSystemValue->getFacetCalculatedValue('swelling')->value,
+            $ascoradLocalScoringSystemValue->getFacetScore('swelling')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
+            )
+        );
+
+        $this->assertNull($ascoradLocalScoringSystemValue->getFacetScore('itchinessScorad')->intensity);
+        $this->assertThat(
+            $ascoradLocalScoringSystemValue->getFacetScore('itchinessScorad')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(10)
+            )
+        );
+
+        $this->assertNull($ascoradLocalScoringSystemValue->getFacetScore('sleeplessness')->intensity);
+        $this->assertThat(
+            $ascoradLocalScoringSystemValue->getFacetScore('sleeplessness')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(10)
+            )
+        );
+
+        $this->assertNotNull($ascoradLocalScoringSystemValue->getFacetScore('surfaceValue')->intensity);
+        $this->assertThat(
+            $ascoradLocalScoringSystemValue->getFacetScore('surfaceValue')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(100)
             )
         );
 
         // DLQI
-        $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
-        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
+        $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
+        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($dlqiScoringSystemValue->getScore()->category);
+        foreach (range(1, 10) as $number) {
+            $facetCode = sprintf('question%d', $number);
+            $facetScore = $dlqiScoringSystemValue->getFacetScore($facetCode);
+            $this->assertNull($facetScore->intensity);
+            $this->assertThat(
+                $facetScore->value,
+                $this->logicalAnd(
+                    $this->greaterThanOrEqual(0),
+                    $this->lessThanOrEqual(3)
+                )
+            );
+        }
     }
 
     public function testHidradenitis()
@@ -634,24 +774,50 @@ class FollowUpTest extends TestCase
 
         $this->assertNotEmpty($response->explainabilityMedia);
 
-        $this->assertCount(3, $response->scoringSystemsValues);
+        $this->assertCount(3, $response->scoringSystemsResults);
 
         // AIHS4_LOCAL
-        $aihs4LocalScoringSystemValue = $response->getScoringSystemValues('AIHS4_LOCAL');
-        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getScore()->calculatedScore);
+        $aihs4LocalScoringSystemValue = $response->getScoringSystemResult('AIHS4_LOCAL');
+        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getScore()->score);
         $this->assertNotNull($aihs4LocalScoringSystemValue->getScore()->category);
 
-        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetCalculatedValue('abscesseNumber')->value);
-        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetCalculatedValue('drainingTunnelNumber')->value);
-        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetCalculatedValue('noduleNumber')->value);
+        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetScore('abscesseNumber')->value);
+        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetScore('drainingTunnelNumber')->value);
+        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetScore('noduleNumber')->value);
+
 
         // DLQI
-        $dlqiScoringSystemValue = $response->getScoringSystemValues('DLQI');
-        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->questionnaireScore);
+        $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
+        $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($dlqiScoringSystemValue->getScore()->category);
+        foreach (range(1, 10) as $number) {
+            $facetCode = sprintf('question%d', $number);
+            $facetScore = $dlqiScoringSystemValue->getFacetScore($facetCode);
+            $this->assertNull($facetScore->intensity);
+            $this->assertThat(
+                $facetScore->value,
+                $this->logicalAnd(
+                    $this->greaterThanOrEqual(0),
+                    $this->lessThanOrEqual(3)
+                )
+            );
+        }
 
         // IHS4_LOCAL
-        $ihs4LocalScoringSystemValue = $response->getScoringSystemValues('IHS4_LOCAL');
-        $this->assertGreaterThanOrEqual(0, $ihs4LocalScoringSystemValue->getScore()->questionnaireScore);
+        $ihs4LocalScoringSystemValue = $response->getScoringSystemResult('IHS4_LOCAL');
+        $this->assertGreaterThanOrEqual(0, $ihs4LocalScoringSystemValue->getScore()->score);
+        $this->assertNotEmpty($ihs4LocalScoringSystemValue->getScore()->category);
+
+        foreach (['abscesseNumber', 'drainingTunnelNumber', 'noduleNumber'] as $facetCode) {
+            $facetScore = $ihs4LocalScoringSystemValue->getFacetScore($facetCode);
+            $this->assertThat(
+                $facetScore->value,
+                $this->logicalAnd(
+                    $this->greaterThanOrEqual(0)
+                )
+            );
+            $this->assertNull($facetScore->intensity);
+        }
     }
 
     private function generateRandom($length = 15)

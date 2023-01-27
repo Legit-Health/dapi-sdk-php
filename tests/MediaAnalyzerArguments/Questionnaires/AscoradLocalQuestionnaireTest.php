@@ -13,8 +13,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => 0,
-                'itchiness_scorad' => 0,
+                'surfaceValue' => 0,
+                'itchinessScorad' => 0,
                 'sleeplessness' => 0
             ]);
         } catch (Throwable) {
@@ -25,8 +25,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => 100,
-                'itchiness_scorad' => 10,
+                'surfaceValue' => 100,
+                'itchinessScorad' => 10,
                 'sleeplessness' => 10
             ]);
         } catch (Throwable) {
@@ -37,8 +37,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => random_int(0, 100),
-                'itchiness_scorad' => random_int(0, 10),
+                'surfaceValue' => random_int(0, 100),
+                'itchinessScorad' => random_int(0, 10),
                 'sleeplessness' => random_int(0, 10)
             ]);
         } catch (Throwable) {
@@ -49,8 +49,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => 101,
-                'itchiness_scorad' => 11,
+                'surfaceValue' => 101,
+                'itchinessScorad' => 11,
                 'sleeplessness' => 11
             ]);
         } catch (Throwable) {
@@ -61,8 +61,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => 100,
-                'itchiness_scorad' => 11,
+                'surfaceValue' => 100,
+                'itchinessScorad' => 11,
                 'sleeplessness' => 11
             ]);
         } catch (Throwable) {
@@ -73,8 +73,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => 100,
-                'itchiness_scorad' => 10,
+                'surfaceValue' => 100,
+                'itchinessScorad' => 10,
                 'sleeplessness' => 11
             ]);
         } catch (Throwable) {
@@ -85,8 +85,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => -1,
-                'itchiness_scorad' => -1,
+                'surfaceValue' => -1,
+                'itchinessScorad' => -1,
                 'sleeplessness' => -1
             ]);
         } catch (Throwable) {
@@ -97,8 +97,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => 0,
-                'itchiness_scorad' => -1,
+                'surfaceValue' => 0,
+                'itchinessScorad' => -1,
                 'sleeplessness' => -1
             ]);
         } catch (Throwable) {
@@ -109,8 +109,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $exceptionIsThrown = false;
         try {
             new AscoradLocalQuestionnaire(...[
-                'surface_value' => 0,
-                'itchiness_scorad' => 0,
+                'surfaceValue' => 0,
+                'itchinessScorad' => 0,
                 'sleeplessness' => -1
             ]);
         } catch (Throwable) {
@@ -124,8 +124,8 @@ class AscoradLocalQuestionnaireTest extends TestCase
         $ascoradLocalQuestionnaire = new AscoradLocalQuestionnaire(27, 2, 1);
         $arr = $ascoradLocalQuestionnaire->toArray();
         $this->assertCount(3, array_keys($arr));
-        $this->assertEquals(27, $arr['surface_value']);
-        $this->assertEquals(2, $arr['itchiness_scorad']);
+        $this->assertEquals(27, $arr['surfaceValue']);
+        $this->assertEquals(2, $arr['itchinessScorad']);
         $this->assertEquals(1, $arr['sleeplessness']);
     }
 

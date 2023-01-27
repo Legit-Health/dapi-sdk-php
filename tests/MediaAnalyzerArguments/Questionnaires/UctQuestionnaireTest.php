@@ -120,10 +120,10 @@ class UctQuestionnaireTest extends TestCase
         $uctQuestionnaire = new UctQuestionnaire(1, 2, 0, 4);
         $arr = $uctQuestionnaire->toArray();
         $this->assertCount(4, array_keys($arr));
-        $this->assertEquals(1, $arr['question1_uct']);
-        $this->assertEquals(2, $arr['question2_uct']);
-        $this->assertEquals(0, $arr['question3_uct']);
-        $this->assertEquals(4, $arr['question4_uct']);
+        $this->assertEquals(1, $arr['question1Uct']);
+        $this->assertEquals(2, $arr['question2Uct']);
+        $this->assertEquals(0, $arr['question3Uct']);
+        $this->assertEquals(4, $arr['question4Uct']);
     }
 
     public function testGetName()

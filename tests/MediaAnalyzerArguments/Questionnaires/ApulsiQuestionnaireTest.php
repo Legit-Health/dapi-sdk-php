@@ -80,9 +80,9 @@ class ApulsiQuestionnaireTest extends TestCase
         $apulsiQuestionnaire = new ApulsiQuestionnaire(2, 1, 0);
         $arr = $apulsiQuestionnaire->toArray();
         $this->assertCount(3, array_keys($arr));
-        $this->assertEquals(2, $arr['erythema_surface']);
-        $this->assertEquals(1, $arr['pain_apusa']);
-        $this->assertEquals(0, $arr['odor_apusa']);
+        $this->assertEquals(2, $arr['erythemaSurface']);
+        $this->assertEquals(1, $arr['painApusa']);
+        $this->assertEquals(0, $arr['odorApusa']);
     }
 
     public function testGetName()

@@ -3,13 +3,13 @@
 namespace LegitHealth\Dapi\MediaAnalyzerResponse;
 
 use LegitHealth\Dapi\MediaAnalyzerResponse\Conclusion\Conclusion;
-use LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem\ScoringSystemValues;
 use LegitHealth\Dapi\MediaAnalyzerResponse\MediaValidity\{MediaValidity, ValidityMetric};
+use LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem\ScoringSystemResult;
 
 final class MediaAnalyzerResponse
 {
     /**
-     * @param ScoringSystemValues[] $scoringSystemsValues
+     * @param ScoringSystemResult[] $scoringSystemsResults
      * @param Conclusion[] $conclusions
      */
     public function __construct(
@@ -18,7 +18,7 @@ final class MediaAnalyzerResponse
         public readonly MediaValidity $mediaValidity,
         public readonly MetricsValue $metricsValue,
         public readonly ?string $explainabilityMedia,
-        public readonly array $scoringSystemsValues,
+        public readonly array $scoringSystemsResults,
         public readonly array $conclusions,
         public readonly float $iaSeconds
     ) {
@@ -45,10 +45,10 @@ final class MediaAnalyzerResponse
         $explainabilityMediaContent = $json['explainabilityMedia']['content'];
         $explainabilityMedia = $explainabilityMediaContent === null || $explainabilityMediaContent === '' ? null : $explainabilityMediaContent;
 
-        $scoringSystemsValues = [];
+        $scoringSystemsResults = [];
         if (isset($json['evolution']['domains'])) {
             foreach ($json['evolution']['domains'] as $scoringSystemCode => $values) {
-                $scoringSystemsValues[] = new ScoringSystemValues(
+                $scoringSystemsResults[] = new ScoringSystemResult(
                     $scoringSystemCode,
                     $values
                 );
@@ -78,15 +78,15 @@ final class MediaAnalyzerResponse
             $mediaValidity,
             $metrics,
             $explainabilityMedia,
-            $scoringSystemsValues,
+            $scoringSystemsResults,
             $conclusions,
             $iaSeconds
         );
     }
 
-    public function getScoringSystemValues(string $scoringSystemCode): ?ScoringSystemValues
+    public function getScoringSystemResult(string $scoringSystemCode): ?ScoringSystemResult
     {
-        foreach ($this->scoringSystemsValues as $scoringSystemValues) {
+        foreach ($this->scoringSystemsResults as $scoringSystemValues) {
             if ($scoringSystemValues->scoringSystemCode === $scoringSystemCode) {
                 return $scoringSystemValues;
             }
