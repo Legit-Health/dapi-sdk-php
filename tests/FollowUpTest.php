@@ -446,7 +446,7 @@ class FollowUpTest extends TestCase
 
         $this->assertNull($auasLocalScoringSystemValue->getFacetScore('itchiness')->intensity);
         $this->assertThat(
-            $auasLocalScoringSystemValue->getFacetScore('hiveNumber')->value,
+            $auasLocalScoringSystemValue->getFacetScore('itchiness')->value,
             $this->logicalAnd(
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(3)
