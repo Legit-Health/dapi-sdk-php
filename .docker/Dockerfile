@@ -1,6 +1,6 @@
 FROM php:8.1-fpm-alpine
 
-RUN apk update && apk add git curl zip unzip autoconf g++ make
+RUN apk update && apk add git curl zip unzip autoconf g++ make linux-headers
 
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
