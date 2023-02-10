@@ -22,6 +22,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\UasLocalQuestionnaire
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem\DetectionLabel;
 use PHPUnit\Framework\TestCase;
 
 class FollowUpTest extends TestCase
@@ -97,7 +98,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNotEmpty($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia);
 
         $this->assertCount(4, $response->scoringSystemsResults);
 
@@ -170,6 +171,22 @@ class FollowUpTest extends TestCase
             )
         );
 
+        $this->assertNotNull(
+            $apasiLocalScoringSystemValue->explainabilityMedia->content
+        );
+        if (
+            $apasiLocalScoringSystemValue->explainabilityMedia->detections !== null &&
+            count($apasiLocalScoringSystemValue->explainabilityMedia->detections) > 0
+        ) {
+            $this->assertGreaterThanOrEqual(0, $apasiLocalScoringSystemValue->explainabilityMedia->detections);
+            $detection = $apasiLocalScoringSystemValue->explainabilityMedia->detections[0];
+            $this->assertGreaterThanOrEqual(0, $detection->confidence);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->y);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->y);
+        }
+
         // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
         $this->assertGreaterThanOrEqual(0, $dlqiScoringSystemValue->getScore()->score);
@@ -187,6 +204,13 @@ class FollowUpTest extends TestCase
             );
         }
 
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->detections
+        );
+
         // PURE4
         $pure4ScoringSystemValue = $response->getScoringSystemResult('PURE4');
         $this->assertGreaterThanOrEqual(0, $pure4ScoringSystemValue->getScore()->score);
@@ -203,6 +227,13 @@ class FollowUpTest extends TestCase
                 )
             );
         }
+
+        $this->assertNull(
+            $pure4ScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $pure4ScoringSystemValue->explainabilityMedia->detections
+        );
 
         // PASI_LOCAL
         $pasiLocalScoringSystemValue = $response->getScoringSystemResult('PASI_LOCAL');
@@ -243,6 +274,13 @@ class FollowUpTest extends TestCase
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(6)
             )
+        );
+
+        $this->assertNull(
+            $pasiLocalScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $pasiLocalScoringSystemValue->explainabilityMedia->detections
         );
     }
 
@@ -313,7 +351,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNotEmpty($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia);
 
         $this->assertCount(2, $response->scoringSystemsResults);
 
@@ -347,6 +385,19 @@ class FollowUpTest extends TestCase
             )
         );
         $this->assertGreaterThan(0, $alegiScoringSystemValue->getFacetScore('lesionNumber')->value);
+        $this->assertNotNull(
+            $alegiScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertGreaterThanOrEqual(0, $alegiScoringSystemValue->explainabilityMedia->detections);
+        if (count($alegiScoringSystemValue->explainabilityMedia->detections) > 0) {
+            $detection = $alegiScoringSystemValue->explainabilityMedia->detections[0];
+            $this->assertGreaterThanOrEqual(0, $detection->confidence);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->y);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->y);
+            $this->assertEquals(DetectionLabel::AcneLesion, $detection->detectionLabel);
+        }
 
         // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
@@ -364,6 +415,12 @@ class FollowUpTest extends TestCase
                 )
             );
         }
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->detections
+        );
     }
 
     public function testUrticariaFollowUp()
@@ -431,7 +488,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNotEmpty($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia);
 
         $this->assertCount(3, $response->scoringSystemsResults);
 
@@ -452,6 +509,19 @@ class FollowUpTest extends TestCase
                 $this->lessThanOrEqual(3)
             )
         );
+        $this->assertNotNull(
+            $auasLocalScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertGreaterThanOrEqual(0, $auasLocalScoringSystemValue->explainabilityMedia->detections);
+        if (count($auasLocalScoringSystemValue->explainabilityMedia->detections) > 0) {
+            $detection = $auasLocalScoringSystemValue->explainabilityMedia->detections[0];
+            $this->assertGreaterThanOrEqual(0, $detection->confidence);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->y);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->y);
+            $this->assertEquals(DetectionLabel::Hive, $detection->detectionLabel);
+        }
 
         // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
@@ -469,6 +539,12 @@ class FollowUpTest extends TestCase
                 )
             );
         }
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->detections
+        );
 
 
         // UAS_LOCAL
@@ -491,6 +567,12 @@ class FollowUpTest extends TestCase
                 $this->greaterThanOrEqual(0),
                 $this->lessThanOrEqual(4)
             )
+        );
+        $this->assertNull(
+            $uasLocalScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $uasLocalScoringSystemValue->explainabilityMedia->detections
         );
     }
 
@@ -558,7 +640,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNotEmpty($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia);
 
         $this->assertCount(2, $response->scoringSystemsResults);
 
@@ -689,6 +771,22 @@ class FollowUpTest extends TestCase
                 $this->lessThanOrEqual(100)
             )
         );
+        $this->assertNotNull(
+            $ascoradLocalScoringSystemValue->explainabilityMedia->content
+        );
+        if (
+            $ascoradLocalScoringSystemValue->explainabilityMedia->detections !== null &&
+            count($ascoradLocalScoringSystemValue->explainabilityMedia->detections) > 0
+        ) {
+            $this->assertGreaterThanOrEqual(0, $ascoradLocalScoringSystemValue->explainabilityMedia->detections);
+            $detection = $ascoradLocalScoringSystemValue->explainabilityMedia->detections[0];
+            $this->assertGreaterThanOrEqual(0, $detection->confidence);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->y);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->y);
+            $this->assertEquals(DetectionLabel::Hive, $detection->detectionLabel);
+        }
 
         // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
@@ -706,6 +804,12 @@ class FollowUpTest extends TestCase
                 )
             );
         }
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->detections
+        );
     }
 
     public function testHidradenitis()
@@ -772,7 +876,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNotEmpty($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia);
 
         $this->assertCount(3, $response->scoringSystemsResults);
 
@@ -784,7 +888,19 @@ class FollowUpTest extends TestCase
         $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetScore('abscesseNumber')->value);
         $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetScore('drainingTunnelNumber')->value);
         $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->getFacetScore('noduleNumber')->value);
-
+        $this->assertNotNull(
+            $aihs4LocalScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertGreaterThanOrEqual(0, $aihs4LocalScoringSystemValue->explainabilityMedia->detections);
+        if (count($aihs4LocalScoringSystemValue->explainabilityMedia->detections) > 0) {
+            $detection = $aihs4LocalScoringSystemValue->explainabilityMedia->detections[0];
+            $this->assertGreaterThanOrEqual(0, $detection->confidence);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->y);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->y);
+            $this->assertContains($detection->detectionLabel, [DetectionLabel::Hive, DetectionLabel::DrainingTunnel, DetectionLabel::Abscess]);
+        }
 
         // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
@@ -802,6 +918,12 @@ class FollowUpTest extends TestCase
                 )
             );
         }
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $dlqiScoringSystemValue->explainabilityMedia->detections
+        );
 
         // IHS4_LOCAL
         $ihs4LocalScoringSystemValue = $response->getScoringSystemResult('IHS4_LOCAL');
@@ -818,6 +940,12 @@ class FollowUpTest extends TestCase
             );
             $this->assertNull($facetScore->intensity);
         }
+        $this->assertNull(
+            $ihs4LocalScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertNull(
+            $ihs4LocalScoringSystemValue->explainabilityMedia->detections
+        );
     }
 
     private function generateRandom($length = 15)

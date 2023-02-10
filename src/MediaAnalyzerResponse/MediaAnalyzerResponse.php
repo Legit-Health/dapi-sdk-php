@@ -48,7 +48,7 @@ final class MediaAnalyzerResponse
         $scoringSystemsResults = [];
         if (isset($json['evolution']['domains'])) {
             foreach ($json['evolution']['domains'] as $scoringSystemCode => $values) {
-                $scoringSystemsResults[] = new ScoringSystemResult(
+                $scoringSystemsResults[] = ScoringSystemResult::fromJson(
                     $scoringSystemCode,
                     $values
                 );

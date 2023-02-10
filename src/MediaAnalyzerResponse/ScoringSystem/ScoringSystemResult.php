@@ -4,26 +4,39 @@ namespace LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem;
 
 final class ScoringSystemResult
 {
-    private ScoringSystemScore $score;
-    /** @var array<string,FacetScore> */
-    private array $facetScores;
+    /** @param array<string,FacetScore> $facetScores */
+    public function __construct(
+        public readonly string $scoringSystemCode,
+        public readonly ScoringSystemScore $score,
+        public readonly array $facetScores,
+        public readonly ExplainabilityMedia $explainabilityMedia,
+    ) {
+    }
 
-    public function __construct(public readonly string $scoringSystemCode, private array $values)
-    {
-        $grade = $this->values['grade'];
-        $this->score = new ScoringSystemScore(
-            $grade['category'],
-            $grade['score']
+    public static function fromJson(
+        string $scoringSystemCode,
+        array $json
+    ): self {
+        $scoringSystemScore = new ScoringSystemScore(
+            $json['grade']['category'],
+            $json['grade']['score']
         );
 
-        $this->facetScores = [];
-        foreach ($this->values['facets'] as $facetCode => $scoreJson) {
-            $this->facetScores["$facetCode"] = new FacetScore(
+        $facetScores = [];
+        foreach ($json['facets'] as $facetCode => $scoreJson) {
+            $facetScores["$facetCode"] = new FacetScore(
                 $facetCode,
                 $scoreJson['value'],
                 $scoreJson['intensity']
             );
         }
+
+        return new self(
+            $scoringSystemCode,
+            $scoringSystemScore,
+            $facetScores,
+            ExplainabilityMedia::fromJson($json['explainabilityMedia'] ?? null)
+        );
     }
 
     public function getScore(): ScoringSystemScore
