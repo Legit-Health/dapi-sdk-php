@@ -774,19 +774,9 @@ class FollowUpTest extends TestCase
         $this->assertNotNull(
             $ascoradLocalScoringSystemValue->explainabilityMedia->content
         );
-        if (
-            $ascoradLocalScoringSystemValue->explainabilityMedia->detections !== null &&
-            count($ascoradLocalScoringSystemValue->explainabilityMedia->detections) > 0
-        ) {
-            $this->assertGreaterThanOrEqual(0, $ascoradLocalScoringSystemValue->explainabilityMedia->detections);
-            $detection = $ascoradLocalScoringSystemValue->explainabilityMedia->detections[0];
-            $this->assertGreaterThanOrEqual(0, $detection->confidence);
-            $this->assertGreaterThanOrEqual(0, $detection->p1->x);
-            $this->assertGreaterThanOrEqual(0, $detection->p1->y);
-            $this->assertGreaterThanOrEqual(0, $detection->p2->x);
-            $this->assertGreaterThanOrEqual(0, $detection->p2->y);
-            $this->assertEquals(DetectionLabel::Hive, $detection->detectionLabel);
-        }
+        $this->assertNull(
+            $ascoradLocalScoringSystemValue->explainabilityMedia->detections
+        );
 
         // DLQI
         $dlqiScoringSystemValue = $response->getScoringSystemResult('DLQI');
