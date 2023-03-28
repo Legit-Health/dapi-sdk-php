@@ -18,7 +18,7 @@ final class ScoringSystemResult
         array $json
     ): self {
         $scoringSystemScore = new ScoringSystemScore(
-            $json['grade']['category'],
+            $json['grade']['category'] ?? null,
             $json['grade']['score']
         );
 
