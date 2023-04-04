@@ -17,7 +17,7 @@ final class MediaAnalyzerResponse
         public readonly string $modality,
         public readonly MediaValidity $mediaValidity,
         public readonly MetricsValue $metricsValue,
-        public readonly ?string $explainabilityMedia,
+        public readonly ?ExplainabilityMedia $explainabilityMedia,
         public readonly array $scoringSystemsResults,
         public readonly array $conclusions,
         public readonly float $iaSeconds
@@ -42,8 +42,7 @@ final class MediaAnalyzerResponse
         $mediaValidity = new MediaValidity($isValid, $diqaScore, $mediaValidityMetrics);
 
         $metrics = new MetricsValue($json['metrics']['sensitivity'], $json['metrics']['specificity']);
-        $explainabilityMediaContent = $json['explainabilityMedia']['content'];
-        $explainabilityMedia = $explainabilityMediaContent === null || $explainabilityMediaContent === '' ? null : $explainabilityMediaContent;
+        $explainabilityMedia = ExplainabilityMedia::fromJson($json['explainabilityMedia']);
 
         $scoringSystemsResults = [];
         if (isset($json['evolution']['domains'])) {

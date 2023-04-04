@@ -1,8 +1,6 @@
 <?php
 
-namespace LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem;
-
-use LegitHealth\Dapi\MediaAnalyzerResponse\Point2d;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse;
 
 class Detection
 {

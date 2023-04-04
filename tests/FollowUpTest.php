@@ -22,7 +22,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\UasLocalQuestionnaire
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
-use LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem\DetectionLabel;
+use LegitHealth\Dapi\MediaAnalyzerResponse\DetectionLabel;
 use PHPUnit\Framework\TestCase;
 
 class FollowUpTest extends TestCase
@@ -98,7 +98,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNull($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia->content);
 
         $this->assertCount(4, $response->scoringSystemsResults);
 
@@ -351,7 +351,10 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNull($response->explainabilityMedia);
+        $explainabilityMedia = $response->explainabilityMedia;
+        $this->assertNotNull($response->explainabilityMedia);
+        $this->assertNull($explainabilityMedia->content);
+        $this->assertNotNull($explainabilityMedia->explainabilityMediaMetrics->pxToCm);
 
         $this->assertCount(2, $response->scoringSystemsResults);
 
@@ -488,7 +491,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNull($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia->content);
 
         $this->assertCount(3, $response->scoringSystemsResults);
 
@@ -640,7 +643,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNull($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia->content);
 
         $this->assertCount(2, $response->scoringSystemsResults);
 
@@ -866,7 +869,7 @@ class FollowUpTest extends TestCase
 
         $this->assertGreaterThan(0, $response->iaSeconds);
 
-        $this->assertNull($response->explainabilityMedia);
+        $this->assertNull($response->explainabilityMedia->content);
 
         $this->assertCount(3, $response->scoringSystemsResults);
 

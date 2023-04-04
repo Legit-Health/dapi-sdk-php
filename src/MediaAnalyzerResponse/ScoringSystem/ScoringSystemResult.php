@@ -2,6 +2,8 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem;
 
+use LegitHealth\Dapi\MediaAnalyzerResponse\ExplainabilityMedia;
+
 final class ScoringSystemResult
 {
     /** @param array<string,FacetScore> $facetScores */

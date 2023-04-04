@@ -56,7 +56,7 @@ class PredictTest extends TestCase
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
-        $this->assertNull($response->explainabilityMedia);
+        $this->assertNotNull($response->explainabilityMedia);
 
         $this->assertCount(0, $response->scoringSystemsResults);
 
@@ -108,7 +108,7 @@ class PredictTest extends TestCase
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
-        $this->assertNull($response->explainabilityMedia);
+        $this->assertNotNull($response->explainabilityMedia);
 
         $this->assertCount(0, $response->scoringSystemsResults);
 
@@ -170,7 +170,7 @@ class PredictTest extends TestCase
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
-        $this->assertNull($response->explainabilityMedia);
+        $this->assertNotNull($response->explainabilityMedia);
 
         $this->assertCount(0, $response->scoringSystemsResults);
 
