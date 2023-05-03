@@ -18,6 +18,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\PasiLocalQuestionnair
 use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Pure4Questionnaire;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaire;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\SevenPCQuestionnaire;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\UasLocalQuestionnaire;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
@@ -939,6 +940,107 @@ class FollowUpTest extends TestCase
         $this->assertNull(
             $ihs4LocalScoringSystemValue->explainabilityMedia->detections
         );
+    }
+
+    public function testNevus()
+    {
+        $currentDir = getcwd();
+        $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
+        $dotenv->load();
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
+            $_ENV['API_URL'],
+            $_ENV['API_KEY']
+        );
+
+        $currentDir = getcwd();
+        $fileToUpload = $currentDir . '/tests/resources/nevus.jpg';
+        $image = file_get_contents($fileToUpload);
+
+        $fileToUpload = $currentDir . '/tests/resources/nevus.jpg';
+        $previousMediaImage = file_get_contents($fileToUpload);
+
+        $sevenPC = new SevenPCQuestionnaire(1, 1, 1, 0, 0, 0, 1);
+        $questionnaires = new Questionnaires([$sevenPC]);
+
+        $followUpArguments = new FollowUpArguments(
+            $this->generateRandom(),
+            content: base64_encode($image),
+            pathologyCode: 'Atypical nevus',
+            bodySiteCode: BodySiteCode::ArmLeft,
+            previousMedias: [
+                new PreviousMedia(base64_encode($previousMediaImage), DateTimeImmutable::createFromFormat('Ymd', '20220106'))
+            ],
+            operator: Operator::Patient,
+            subject: new Subject(
+                $this->generateRandom(),
+                Gender::Male,
+                '1.75',
+                '70',
+                DateTimeImmutable::createFromFormat('Ymd', '19861020'),
+                $this->generateRandom(),
+                new Company($this->generateRandom(), 'Company')
+            ),
+            scoringSystems: ['7PC'],
+            questionnaires: $questionnaires
+        );
+
+        $response = $mediaAnalyzer->followUp($followUpArguments);
+
+        $preliminaryFindings = $response->preliminaryFindings;
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isPreMalignantSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isMalignantSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsBiopsySuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsSpecialistsAttention);
+
+        $this->assertNotEmpty($response->modality);
+
+        $mediaValidity = $response->mediaValidity;
+        $this->assertTrue($mediaValidity->isValid);
+        $this->assertGreaterThan(0, $mediaValidity->diqaScore);
+        foreach ($mediaValidity->validityMetrics as $validityMetric) {
+            $this->assertTrue($validityMetric->pass);
+            $this->assertNotEmpty($validityMetric->name);
+        }
+
+        $metrics = $response->metricsValue;
+        $this->assertGreaterThan(0, $metrics->sensitivity);
+        $this->assertGreaterThan(0, $metrics->specificity);
+
+        $this->assertGreaterThan(0, $response->iaSeconds);
+
+        $explainabilityMedia = $response->explainabilityMedia;
+        $this->assertNotNull($response->explainabilityMedia);
+        $this->assertNull($explainabilityMedia->content);
+        $this->assertNotNull($explainabilityMedia->explainabilityMediaMetrics->pxToCm);
+
+        $this->assertCount(1, $response->scoringSystemsResults);
+
+        // NEVUS
+        $sevenPCScoringSystemValue = $response->getScoringSystemResult('7PC');
+        $this->assertGreaterThanOrEqual(0, $sevenPCScoringSystemValue->getScore()->score);
+        $this->assertNotNull($sevenPCScoringSystemValue->getScore()->category);
+
+        $this->assertNull($sevenPCScoringSystemValue->getFacetScore('question1SevenPC')->intensity);
+        $this->assertEquals(1, $sevenPCScoringSystemValue->getFacetScore('question1SevenPC')->value);
+
+        $this->assertNull($sevenPCScoringSystemValue->getFacetScore('question2SevenPC')->intensity);
+        $this->assertEquals(1, $sevenPCScoringSystemValue->getFacetScore('question2SevenPC')->value);
+
+        $this->assertNull($sevenPCScoringSystemValue->getFacetScore('question3SevenPC')->intensity);
+        $this->assertEquals(1, $sevenPCScoringSystemValue->getFacetScore('question3SevenPC')->value);
+
+        $this->assertNull($sevenPCScoringSystemValue->getFacetScore('question4SevenPC')->intensity);
+        $this->assertEquals(0, $sevenPCScoringSystemValue->getFacetScore('question4SevenPC')->value);
+
+        $this->assertNull($sevenPCScoringSystemValue->getFacetScore('question5SevenPC')->intensity);
+        $this->assertEquals(0, $sevenPCScoringSystemValue->getFacetScore('question5SevenPC')->value);
+
+        $this->assertNull($sevenPCScoringSystemValue->getFacetScore('question6SevenPC')->intensity);
+        $this->assertEquals(0, $sevenPCScoringSystemValue->getFacetScore('question6SevenPC')->value);
+
+        $this->assertNull($sevenPCScoringSystemValue->getFacetScore('question7SevenPC')->intensity);
+        $this->assertEquals(1, $sevenPCScoringSystemValue->getFacetScore('question7SevenPC')->value);
     }
 
     private function generateRandom($length = 15)
