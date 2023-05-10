@@ -6,9 +6,10 @@ use DateTimeImmutable;
 use Dotenv\Dotenv;
 use LegitHealth\Dapi\MediaAnalyzer;
 use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
+use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
-use LegitHealth\Dapi\MediaAnalyzerArguments\PredictArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\PredictData;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use PHPUnit\Framework\TestCase;
@@ -28,12 +29,11 @@ class PredictTest extends TestCase
         $fileToUpload = $currentDir . '/tests/resources/psoriasis_01.png';
         $image = file_get_contents($fileToUpload);
 
-        $predictArguments = new PredictArguments(
-            $this->generateRandom(),
+        $predictData = new PredictData(
             content: base64_encode($image)
         );
-
-        $response = $mediaAnalyzer->predict($predictArguments);
+        $mediaAnalyzerArguments = new MediaAnalyzerArguments($this->generateRandom(), $predictData);
+        $response = $mediaAnalyzer->predict($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -83,12 +83,13 @@ class PredictTest extends TestCase
         $fileToUpload = $currentDir . '/tests/resources/invalid.png';
         $image = file_get_contents($fileToUpload);
 
-        $predictArguments = new PredictArguments(
-            $this->generateRandom(),
+        $predictData = new PredictData(
             content: base64_encode($image)
         );
 
-        $response = $mediaAnalyzer->predict($predictArguments);
+        $mediaAnalyzerArguments = new MediaAnalyzerArguments($this->generateRandom(), $predictData);
+
+        $response = $mediaAnalyzer->predict($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -131,8 +132,7 @@ class PredictTest extends TestCase
         $fileToUpload = $currentDir . '/tests/resources/psoriasis_01.png';
         $image = file_get_contents($fileToUpload);
 
-        $predictArguments = new PredictArguments(
-            requestId: $this->generateRandom(),
+        $predictData = new PredictData(
             content: base64_encode($image),
             bodySiteCode: BodySiteCode::ArmLeft,
             operator: Operator::Patient,
@@ -146,8 +146,8 @@ class PredictTest extends TestCase
                 new Company($this->generateRandom(), 'Company Name')
             )
         );
-
-        $response = $mediaAnalyzer->predict($predictArguments);
+        $mediaAnalyzerArguments = new MediaAnalyzerArguments($this->generateRandom(), $predictData);
+        $response = $mediaAnalyzer->predict($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);

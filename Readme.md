@@ -17,11 +17,10 @@ The class `MediaAnalyzer` exposes two methods:
 
 ## Predict requests
 
-The `predict` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\PredictArguments`. The constructor of this class receives several arguments, so you can specify the image itself and information about the patient or the body site:
+The `predict` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments`. The constructor of this class receives an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\PredictData`, in which you can specify the image itself and information about the patient or the body site:
 
 ```php
-$predictArguments = new PredictArguments(
-    requestId: 'identifier of the request',
+$predictData = new PredictData(
     content: base64_encode($image),
     bodySiteCode: BodySiteCode::ArmLeft,
     operator: Operator::Patient,
@@ -37,14 +36,15 @@ $predictArguments = new PredictArguments(
 );
 ```
 
-Once you've created a `PredictArguments` object, you can send the request in this way:
+Once you've created a `PredictData` object, you can send the request in this way:
 
 ```php
+$mediaAnalyzerArguments = new MediaAnalyzerArguments('random id', $predictData)
 $mediaAnalyzer = new MediaAnalyzer(
     $apiUrl,
     $apiKey
 );
-$response = $mediaAnalyzer->predict($predictArguments);
+$response = $mediaAnalyzer->predict($mediaAnalyzerArguments);
 ```
 
 The response object contains several properties with the information returned by the API about the analyzed image:
@@ -63,7 +63,7 @@ The response object contains several properties with the information returned by
 
 ## Follow up requests
 
-The `followUp` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpArguments`. The constructor of this class receives several arguments, so you can specify the image itself and information about a well known condition.
+The `followUp` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments`. The constructor of this class receives an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpData`, in which can specify the image itself and information about a well known condition.
 
 ### Example. Follow up request for psoriasis
 
@@ -90,8 +90,7 @@ $questionnaires = new Questionnaires([$apasiLocal, $pasiLocal, $pure4, $dlqi]);
 Then, we will create an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpArguments`:
 
 ```php
-$followUpArguments = new FollowUpArguments(
-    requestId: 'identifier of the request',
+$followUpData = new FollowUpData(
     content: base64_encode($image),
     pathologyCode: 'Psoriasis',
     bodySiteCode: BodySiteCode::ArmLeft,
@@ -126,14 +125,15 @@ Unlike diagnostic support requests, follow-up requests supports the following ad
 
 - `questionnaires` is an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires` with the values of the scoring systems to be evaluated.
 
-Once you've created a `FollowUpArguments` object, you can send the request in this way:
+Once you've created a `FollowUpData` object, you can send the request in this way:
 
 ```php
 $mediaAnalyzer = new MediaAnalyzer(
     $apiUrl,
     $apiKey
 );
-$response = $mediaAnalyzer->followUp($followUpArguments);
+$mediaAnalyzerArguments = new MediaAnalyzerArguments('identifier of the request', $followUpData);
+$response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
 ```
 
 The response object contains several properties with the information returned by the API about the analyzed image:
@@ -190,4 +190,28 @@ $apasiLocalScoringSystemValue = $response->getScoringSystemValues('APASI_LOCAL')
 $desquamation = $apasiLocalScoringSystemValue->getFacetCalculatedValue('desquamation');
 $desquamationValue = $desquamation->value; // A value between 0 and 4 as the PASI states
 $desquamationIntensity = $desquamation->intensity; // A value between 0 and 100 reflecting the intensity of the desquamation
+```
+
+## Detecting faces
+
+In some cases, you may want to enable the feature of the algorithm capable of detecting faces. In this case, **a metric called `pxToCm` is returned** allowing to get the ratio of conversion from pixels to centimeters. This feature works for both predict and follow up requests.
+
+For example, if you are working with a `PredictData` object, you can send the request in this way:
+
+```php
+// ...
+use LegitHealth\Dapi\MediaAnalyzerArguments\OrderDetail;
+// ...
+$mediaAnalyzerArguments = new MediaAnalyzerArguments('random id', $predictData, new OrderDetail(true))
+$mediaAnalyzer = new MediaAnalyzer(
+    $apiUrl,
+    $apiKey
+);
+$response = $mediaAnalyzer->predict($mediaAnalyzerArguments);
+```
+
+If the algorithm detects a face and can calculate the ratio from pixels to centimeters, the property `metrics` of the `explainabilityMedia` will get a value different of `null` 
+
+```php
+$response->explainabilityMedia->metrics->pxToCm;
 ```

@@ -8,14 +8,13 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
 
-final class FollowUpArguments extends MediaAnalyzerArguments
+final class FollowUpData extends MediaAnalyzerData
 {
     /**
      * @param string[] $scoringSystems
      * @param PreviousMedia[] $previousMedias
      */
     public function __construct(
-        string $requestId,
         string $content,
         string $pathologyCode,
         ?BodySiteCode $bodySiteCode = null,
@@ -23,10 +22,9 @@ final class FollowUpArguments extends MediaAnalyzerArguments
         ?Operator $operator = null,
         ?Subject $subject = null,
         array $scoringSystems = [],
-        Questionnaires $questionnaires = new Questionnaires([])
+        Questionnaires $questionnaires = new Questionnaires([]),
     ) {
         parent::__construct(
-            requestId: $requestId,
             content: $content,
             bodySiteCode: $bodySiteCode,
             pathologyCode: $pathologyCode,

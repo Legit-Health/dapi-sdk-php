@@ -11,7 +11,7 @@ final class ExplainabilityMedia
     public function __construct(
         public readonly ?string $content,
         public readonly ?array $detections,
-        public readonly ExplainabilityMediaMetrics $explainabilityMediaMetrics
+        public readonly ExplainabilityMediaMetrics $metrics
     ) {
     }
 
