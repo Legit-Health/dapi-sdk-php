@@ -25,6 +25,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\UasLocalQuestionnaire
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 use LegitHealth\Dapi\MediaAnalyzerResponse\DetectionLabel;
 use PHPUnit\Framework\TestCase;
 
@@ -437,7 +438,7 @@ class FollowUpTest extends TestCase
         );
     }
 
-    public function testAcneFace()
+    public function testAcneFaceVertexProjection()
     {
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
@@ -450,8 +451,6 @@ class FollowUpTest extends TestCase
         $currentDir = getcwd();
         $fileToUpload = $currentDir . '/tests/resources/acne_face.jpg';
         $image = file_get_contents($fileToUpload);
-
-
 
         $followUpData = new FollowUpData(
             content: base64_encode($image),
@@ -469,7 +468,125 @@ class FollowUpTest extends TestCase
                 new Company($this->generateRandom(), 'Company')
             ),
             scoringSystems: ['ALEGI'],
-            questionnaires: new Questionnaires([])
+            questionnaires: new Questionnaires([]),
+            view: View::VertexProjection
+        );
+
+        $mediaAnalyzerArguments = new MediaAnalyzerArguments(
+            $this->generateRandom(),
+            $followUpData,
+            new OrderDetail(faceDetection: true)
+        );
+
+        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+
+        $preliminaryFindings = $response->preliminaryFindings;
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isPreMalignantSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->isMalignantSuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsBiopsySuspicion);
+        $this->assertGreaterThanOrEqual(0, $preliminaryFindings->needsSpecialistsAttention);
+
+        $this->assertNotEmpty($response->modality);
+
+        $mediaValidity = $response->mediaValidity;
+        $this->assertTrue($mediaValidity->isValid);
+        $this->assertGreaterThan(0, $mediaValidity->diqaScore);
+        foreach ($mediaValidity->validityMetrics as $validityMetric) {
+            $this->assertTrue($validityMetric->pass);
+            $this->assertNotEmpty($validityMetric->name);
+        }
+
+        $metrics = $response->metricsValue;
+        $this->assertGreaterThan(0, $metrics->sensitivity);
+        $this->assertGreaterThan(0, $metrics->specificity);
+
+        $this->assertGreaterThan(0, $response->iaSeconds);
+
+        $explainabilityMedia = $response->explainabilityMedia;
+        $this->assertNotNull($response->explainabilityMedia);
+        $this->assertNull($explainabilityMedia->content);
+        $this->assertNotNull($explainabilityMedia->metrics->pxToCm);
+
+        $this->assertCount(1, $response->scoringSystemsResults);
+
+        // ALEGI
+        $alegiScoringSystemValue = $response->getScoringSystemResult('ALEGI');
+        $this->assertGreaterThanOrEqual(0, $alegiScoringSystemValue->getScore()->score);
+        $this->assertNotNull($alegiScoringSystemValue->getScore()->category);
+
+        $this->assertNotNull($alegiScoringSystemValue->getFacetScore('lesionDensity')->intensity);
+        $this->assertThat(
+            $alegiScoringSystemValue->getFacetScore('lesionDensity')->intensity,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(100)
+            )
+        );
+        $this->assertThat(
+            $alegiScoringSystemValue->getFacetScore('lesionDensity')->value,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(4)
+            )
+        );
+
+        $this->assertNotNull($alegiScoringSystemValue->getFacetScore('lesionNumber')->intensity);
+        $this->assertThat(
+            $alegiScoringSystemValue->getFacetScore('lesionNumber')->intensity,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(0),
+                $this->lessThanOrEqual(100)
+            )
+        );
+        $this->assertGreaterThan(0, $alegiScoringSystemValue->getFacetScore('lesionNumber')->value);
+        $this->assertNotNull(
+            $alegiScoringSystemValue->explainabilityMedia->content
+        );
+        $this->assertGreaterThanOrEqual(0, $alegiScoringSystemValue->explainabilityMedia->detections);
+        if (count($alegiScoringSystemValue->explainabilityMedia->detections) > 0) {
+            $detection = $alegiScoringSystemValue->explainabilityMedia->detections[0];
+            $this->assertGreaterThanOrEqual(0, $detection->confidence);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p1->y);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->x);
+            $this->assertGreaterThanOrEqual(0, $detection->p2->y);
+            $this->assertEquals(DetectionLabel::AcneLesion, $detection->detectionLabel);
+        }
+    }
+
+    public function testAcneFaceLeftTrueLateral()
+    {
+        $currentDir = getcwd();
+        $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
+        $dotenv->load();
+        $mediaAnalyzer = MediaAnalyzer::createWithParams(
+            $_ENV['API_URL'],
+            $_ENV['API_KEY']
+        );
+
+        $currentDir = getcwd();
+        $fileToUpload = $currentDir . '/tests/resources/acne_face.jpg';
+        $image = file_get_contents($fileToUpload);
+
+        $followUpData = new FollowUpData(
+            content: base64_encode($image),
+            pathologyCode: 'Acne',
+            bodySiteCode: BodySiteCode::HeadFront,
+            previousMedias: [],
+            operator: Operator::Patient,
+            subject: new Subject(
+                $this->generateRandom(),
+                Gender::Male,
+                '1.75',
+                '70',
+                DateTimeImmutable::createFromFormat('Ymd', '19861020'),
+                $this->generateRandom(),
+                new Company($this->generateRandom(), 'Company')
+            ),
+            scoringSystems: ['ALEGI'],
+            questionnaires: new Questionnaires([]),
+            view: View::LeftTrueLateral
         );
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(

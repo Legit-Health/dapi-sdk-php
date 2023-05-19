@@ -7,6 +7,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
+use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 
 final class FollowUpData extends MediaAnalyzerData
 {
@@ -23,6 +24,7 @@ final class FollowUpData extends MediaAnalyzerData
         ?Subject $subject = null,
         array $scoringSystems = [],
         Questionnaires $questionnaires = new Questionnaires([]),
+        ?View $view = null
     ) {
         parent::__construct(
             content: $content,
@@ -32,7 +34,8 @@ final class FollowUpData extends MediaAnalyzerData
             operator: $operator,
             subject: $subject,
             scoringSystems: $scoringSystems,
-            questionnaires: $questionnaires
+            questionnaires: $questionnaires,
+            view: $view
         );
     }
 }

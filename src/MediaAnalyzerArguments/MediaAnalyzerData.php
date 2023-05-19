@@ -7,6 +7,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
+use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 
 abstract class MediaAnalyzerData
 {
@@ -22,7 +23,8 @@ abstract class MediaAnalyzerData
         public readonly ?Operator $operator = null,
         public readonly ?Subject $subject = null,
         public readonly array $scoringSystems = [],
-        public readonly Questionnaires $questionnaires = new Questionnaires([])
+        public readonly Questionnaires $questionnaires = new Questionnaires([]),
+        public readonly ?View $view = null
     ) {
     }
 
@@ -48,6 +50,7 @@ abstract class MediaAnalyzerData
             'subject' => $this->subject?->toArray(),
             'scoringSystems' => $this->scoringSystems,
             'questionnaireResponse' => $this->questionnaires->toArray(),
+            'view' => $this->view?->toArray() ?? null
         ];
     }
 }

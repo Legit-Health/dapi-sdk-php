@@ -5,6 +5,7 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments;
 use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 
 final class PredictData extends MediaAnalyzerData
 {
@@ -12,13 +13,15 @@ final class PredictData extends MediaAnalyzerData
         string $content,
         ?BodySiteCode $bodySiteCode = null,
         ?Operator $operator = null,
-        ?Subject $subject = null
+        ?Subject $subject = null,
+        ?View $view = null
     ) {
         parent::__construct(
             content: $content,
             bodySiteCode: $bodySiteCode,
             operator: $operator,
-            subject: $subject
+            subject: $subject,
+            view: $view
         );
     }
 }
