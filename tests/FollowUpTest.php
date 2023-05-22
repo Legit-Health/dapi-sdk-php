@@ -438,7 +438,7 @@ class FollowUpTest extends TestCase
         );
     }
 
-    public function testAcneFaceVertexProjection()
+    public function testAcneFaceAnteriorProjection()
     {
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
@@ -469,7 +469,7 @@ class FollowUpTest extends TestCase
             ),
             scoringSystems: ['ALEGI'],
             questionnaires: new Questionnaires([]),
-            view: View::VertexProjection
+            view: View::AnteriorProjection
         );
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(

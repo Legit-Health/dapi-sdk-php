@@ -15,8 +15,7 @@ enum View: string
             'Vertex projection' => '260461000',
             'Left true lateral' => '260432001',
             'Anterior projection' => '272460009',
-            'Right true lateral' => '260436003',
-            default => '',
+            'Right true lateral' => '260436003'
         };
     }
 
