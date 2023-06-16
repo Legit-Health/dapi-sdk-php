@@ -17,6 +17,7 @@ enum BodySiteCode: string
     case FootLeft = 'FOOT_LEFT';
     case FootRight = 'FOOT_RIGHT';
     case Genital = 'GENITAL';
+    case Nails = 'NAILS';
     case Scalp = 'SCALP';
     case EarLeft = 'EAR_LEFT';
     case EarRight = 'EAR_RIGHT';
