@@ -6,6 +6,9 @@ enum BodySiteCode: string
 {
     case HeadFront = 'HEAD_FRONT';
     case HeadBack = 'HEAD_BACK';
+    case HeadTop = 'HEAD_TOP';
+    case HeadLeft = 'HEAD_LEFT';
+    case HeadRight = 'HEAD_RIGHT';
     case ArmLeft = 'ARM_LEFT';
     case ArmRight = 'ARM_RIGHT';
     case TrunkFront = 'TRUNK_FRONT';
