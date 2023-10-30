@@ -26,7 +26,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
-use LegitHealth\Dapi\MediaAnalyzerResponse\DetectionLabel;
+use LegitHealth\Dapi\MediaAnalyzerResponse\Value\DetectionLabel;
 use PHPUnit\Framework\TestCase;
 
 class FollowUpTest extends TestCase
@@ -100,7 +100,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -357,7 +357,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -497,7 +497,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -614,7 +614,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -735,7 +735,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -891,7 +891,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -1121,7 +1121,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -1264,7 +1264,7 @@ class FollowUpTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 

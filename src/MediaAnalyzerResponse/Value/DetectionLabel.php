@@ -1,6 +1,6 @@
 <?php
 
-namespace LegitHealth\Dapi\MediaAnalyzerResponse;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse\Value;
 
 enum DetectionLabel: string
 {

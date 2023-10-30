@@ -1,14 +1,14 @@
 <?php
 
-namespace LegitHealth\Dapi\MediaAnalyzerResponse;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse\Value;
 
-class Detection
+final readonly class Detection
 {
     public function __construct(
-        public readonly float $confidence,
-        public readonly DetectionLabel $detectionLabel,
-        public readonly Point2d $p1,
-        public readonly Point2d $p2,
+        public float $confidence,
+        public DetectionLabel $detectionLabel,
+        public Point2d $p1,
+        public Point2d $p2,
     ) {
     }
 

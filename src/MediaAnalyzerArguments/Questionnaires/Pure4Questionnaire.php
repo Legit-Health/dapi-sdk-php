@@ -2,13 +2,13 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class Pure4Questionnaire extends Questionnaire
+readonly class Pure4Questionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $question1Pure,
-        public readonly int $question2Pure,
-        public readonly int $question3Pure,
-        public readonly int $question4Pure
+        public int $question1Pure,
+        public int $question2Pure,
+        public int $question3Pure,
+        public int $question4Pure
     ) {
         $this->ensureIsInRange($question1Pure, 0, 1, 'question1Pure');
         $this->ensureIsInRange($question2Pure, 0, 1, 'question2Pure');

@@ -9,22 +9,23 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
 use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 
-abstract class MediaAnalyzerData
+abstract readonly class MediaAnalyzerData
 {
     /**
+     * @param string|string[] $content
      * @param string[] $scoringSystems
      * @param PreviousMedia[] $previousMedias
      */
     public function __construct(
-        public readonly string $content,
-        public readonly ?BodySiteCode $bodySiteCode = null,
-        public readonly ?string $pathologyCode = null,
-        public readonly array $previousMedias = [],
-        public readonly ?Operator $operator = null,
-        public readonly ?Subject $subject = null,
-        public readonly array $scoringSystems = [],
-        public readonly Questionnaires $questionnaires = new Questionnaires([]),
-        public readonly ?View $view = null
+        public string|array $content,
+        public ?BodySiteCode $bodySiteCode = null,
+        public ?string $pathologyCode = null,
+        public array $previousMedias = [],
+        public ?Operator $operator = null,
+        public ?Subject $subject = null,
+        public array $scoringSystems = [],
+        public Questionnaires $questionnaires = new Questionnaires([]),
+        public ?View $view = null
     ) {
     }
 

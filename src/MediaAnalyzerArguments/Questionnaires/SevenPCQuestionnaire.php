@@ -2,16 +2,16 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class SevenPCQuestionnaire extends Questionnaire
+readonly class SevenPCQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $question1SevenPC,
-        public readonly int $question2SevenPC,
-        public readonly int $question3SevenPC,
-        public readonly int $question4SevenPC,
-        public readonly int $question5SevenPC,
-        public readonly int $question6SevenPC,
-        public readonly int $question7SevenPC,
+        public int $question1SevenPC,
+        public int $question2SevenPC,
+        public int $question3SevenPC,
+        public int $question4SevenPC,
+        public int $question5SevenPC,
+        public int $question6SevenPC,
+        public int $question7SevenPC
     ) {
         $this->ensureIsInRange($question1SevenPC, 0, 1, 'question1SevenPC');
         $this->ensureIsInRange($question2SevenPC, 0, 1, 'question2SevenPC');

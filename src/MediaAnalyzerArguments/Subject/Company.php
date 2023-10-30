@@ -2,11 +2,11 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Subject;
 
-class Company
+readonly class Company
 {
     public function __construct(
-        public readonly ?string $id = null,
-        public readonly ?string $name = null
+        public ?string $id = null,
+        public ?string $name = null
     ) {
     }
 }

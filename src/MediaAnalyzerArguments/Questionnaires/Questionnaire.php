@@ -4,7 +4,7 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
 use InvalidArgumentException;
 
-abstract class Questionnaire
+abstract readonly class Questionnaire
 {
     abstract public function toArray(): array;
     abstract public static function getName(): string;

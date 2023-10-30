@@ -2,19 +2,19 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class DlqiQuestionnaire extends Questionnaire
+readonly class DlqiQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $question1,
-        public readonly int $question2,
-        public readonly int $question3,
-        public readonly int $question4,
-        public readonly int $question5,
-        public readonly int $question6,
-        public readonly int $question7,
-        public readonly int $question8,
-        public readonly int $question9,
-        public readonly int $question10
+        public int $question1,
+        public int $question2,
+        public int $question3,
+        public int $question4,
+        public int $question5,
+        public int $question6,
+        public int $question7,
+        public int $question8,
+        public int $question9,
+        public int $question10
     ) {
         $this->ensureIsInRange($question1, 0, 3, 'question1');
         $this->ensureIsInRange($question2, 0, 3, 'question2');

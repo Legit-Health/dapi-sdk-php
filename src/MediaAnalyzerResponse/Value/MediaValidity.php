@@ -1,18 +1,18 @@
 <?php
 
-namespace LegitHealth\Dapi\MediaAnalyzerResponse\MediaValidity;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse\Value;
 
-final class MediaValidity
+final readonly class MediaValidity
 {
     /** @var ValidityMetric[] */
-    public readonly array $validityMetrics;
+    public array $validityMetrics;
 
     /**
      * @param array<string,bool> $validityMetricsJson
      */
     public function __construct(
-        public readonly bool $isValid,
-        public readonly float $diqaScore,
+        public bool $isValid,
+        public float $diqaScore,
         array $validityMetricsJson
     ) {
         $validityMetrics = [];

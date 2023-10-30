@@ -9,6 +9,9 @@ use Throwable;
 
 final class AiClient
 {
+    private const PREDICT_ENDPOINT = '/v2/legit_health/predict';
+    private const DIAGNOSIS_SUPPORT_ENDPOINT = '/v2/legit_health/diagnosis_support';
+
     public function __construct(private HttpClientInterface $httpClient)
     {
     }
@@ -34,7 +37,7 @@ final class AiClient
      */
     public function predict(MediaAnalyzerArguments $arguments): array
     {
-        return $this->send($arguments);
+        return $this->send($arguments, self::PREDICT_ENDPOINT);
     }
 
     /**
@@ -42,16 +45,24 @@ final class AiClient
      */
     public function followUp(MediaAnalyzerArguments $arguments): array
     {
-        return $this->send($arguments);
+        return $this->send($arguments, self::PREDICT_ENDPOINT);
     }
 
     /**
      * @throws MediaAnalyzerException
      */
-    private function send(MediaAnalyzerArguments $arguments): array
+    public function diagnosisSupport(MediaAnalyzerArguments $arguments): array
+    {
+        return $this->send($arguments, self::DIAGNOSIS_SUPPORT_ENDPOINT);
+    }
+
+    /**
+     * @throws MediaAnalyzerException
+     */
+    private function send(MediaAnalyzerArguments $arguments, string $path): array
     {
         try {
-            $response = $this->httpClient->request('POST', '/v2/legit_health/predict', [
+            $response = $this->httpClient->request('POST', $path, [
                 'json' => $arguments->toArray(),
             ]);
 

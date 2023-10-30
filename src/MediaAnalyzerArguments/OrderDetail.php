@@ -2,10 +2,10 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments;
 
-class OrderDetail
+readonly class OrderDetail
 {
     public function __construct(
-        public readonly bool $faceDetection = false
+        public bool $faceDetection = false
     ) {
     }
 

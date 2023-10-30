@@ -2,9 +2,9 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class AuasLocalQuestionnaire extends Questionnaire
+readonly class AuasLocalQuestionnaire extends Questionnaire
 {
-    public function __construct(public readonly int $itchiness)
+    public function __construct(public int $itchiness)
     {
         $this->ensureIsInRange($itchiness, 0, 3, 'itchiness');
     }

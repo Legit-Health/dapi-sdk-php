@@ -2,12 +2,12 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class AscoradLocalQuestionnaire extends Questionnaire
+readonly class AscoradLocalQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly float $surfaceValue,
-        public readonly int $itchinessScorad,
-        public readonly int $sleeplessness
+        public float $surfaceValue,
+        public int $itchinessScorad,
+        public int $sleeplessness
     ) {
         $this->ensureIsInRange($surfaceValue, 0, 100, 'surfaceValue');
         $this->ensureIsInRange($itchinessScorad, 0, 10, 'itchinessScorad');

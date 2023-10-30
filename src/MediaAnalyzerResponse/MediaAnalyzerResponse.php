@@ -2,25 +2,32 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerResponse;
 
-use LegitHealth\Dapi\MediaAnalyzerResponse\Conclusion\Conclusion;
-use LegitHealth\Dapi\MediaAnalyzerResponse\MediaValidity\{MediaValidity, ValidityMetric};
-use LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem\ScoringSystemResult;
+use LegitHealth\Dapi\MediaAnalyzerResponse\Value\{
+    Conclusion,
+    ConclusionCode,
+    ExplainabilityMedia,
+    MediaValidity,
+    MetricsValue,
+    PreliminaryFindingsValue,
+    ScoringSystemResult,
+    ValidityMetric
+};
 
-final class MediaAnalyzerResponse
+final readonly class MediaAnalyzerResponse
 {
     /**
      * @param ScoringSystemResult[] $scoringSystemsResults
      * @param Conclusion[] $conclusions
      */
     public function __construct(
-        public readonly PreliminaryFindingsValue $preliminaryFindings,
-        public readonly string $modality,
-        public readonly MediaValidity $mediaValidity,
-        public readonly MetricsValue $metricsValue,
-        public readonly ?ExplainabilityMedia $explainabilityMedia,
-        public readonly array $scoringSystemsResults,
-        public readonly array $conclusions,
-        public readonly float $iaSeconds
+        public PreliminaryFindingsValue $preliminaryFindings,
+        public string $modality,
+        public MediaValidity $mediaValidity,
+        public MetricsValue $metrics,
+        public ?ExplainabilityMedia $explainabilityMedia,
+        public array $scoringSystemsResults,
+        public array $conclusions,
+        public float $iaSeconds
     ) {
     }
 
@@ -61,8 +68,10 @@ final class MediaAnalyzerResponse
                     $conclusions[] = new Conclusion(
                         $singleConclusion['name'],
                         $singleConclusion['probability'],
-                        $singleConclusion['code']['code'],
-                        $singleConclusion['code']['codeSystem'],
+                        new ConclusionCode(
+                            $singleConclusion['code']['code'],
+                            $singleConclusion['code']['codeSystem']
+                        )
                     );
                 }
             }

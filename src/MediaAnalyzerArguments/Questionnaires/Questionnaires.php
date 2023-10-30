@@ -2,13 +2,13 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class Questionnaires
+readonly class Questionnaires
 {
     /**
      * @param Questionnaire[] $questionnaires
      */
     public function __construct(
-        public readonly array $questionnaires
+        public array $questionnaires
     ) {
     }
 

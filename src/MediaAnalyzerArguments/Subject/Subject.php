@@ -5,16 +5,16 @@ namespace LegitHealth\Dapi\MediaAnalyzerArguments\Subject;
 use DateTimeInterface;
 use LegitHealth\Dapi\Utils\FloatUtils;
 
-class Subject
+readonly class Subject
 {
     public function __construct(
-        public readonly ?string $id = null,
-        public readonly ?Gender $gender = null,
-        public readonly ?string $height = null,
-        public readonly ?string $weight = null,
-        public readonly ?DateTimeInterface $birthdate = null,
-        public readonly ?string $practitionerId = null,
-        public readonly ?Company $company = null
+        public ?string $id = null,
+        public ?Gender $gender = null,
+        public ?string $height = null,
+        public ?string $weight = null,
+        public ?DateTimeInterface $birthdate = null,
+        public ?string $practitionerId = null,
+        public ?Company $company = null
     ) {
     }
 

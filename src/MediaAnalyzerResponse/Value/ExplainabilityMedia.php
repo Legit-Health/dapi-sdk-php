@@ -1,6 +1,6 @@
 <?php
 
-namespace LegitHealth\Dapi\MediaAnalyzerResponse;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse\Value;
 
 final class ExplainabilityMedia
 {
@@ -9,9 +9,9 @@ final class ExplainabilityMedia
      * @param Detection[] $detections
      */
     public function __construct(
-        public readonly ?string $content,
-        public readonly ?array $detections,
-        public readonly ExplainabilityMediaMetrics $metrics
+        public ?string $content,
+        public ?array $detections,
+        public ExplainabilityMediaMetrics $metrics
     ) {
     }
 

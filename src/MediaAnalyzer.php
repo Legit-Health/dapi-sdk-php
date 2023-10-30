@@ -3,7 +3,7 @@
 namespace LegitHealth\Dapi;
 
 use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
-use LegitHealth\Dapi\MediaAnalyzerResponse\MediaAnalyzerResponse;
+use LegitHealth\Dapi\MediaAnalyzerResponse\{DiagnosisSupportResponse, MediaAnalyzerResponse};
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class MediaAnalyzer
@@ -36,6 +36,14 @@ final class MediaAnalyzer
     {
         $json = $this->aiClient->followUp($mediaAnalyzerArguments);
         $response = MediaAnalyzerResponse::createFromJson($json);
+
+        return $response;
+    }
+
+    public function diagnosisSupport(MediaAnalyzerArguments $mediaAnalyzerArguments): DiagnosisSupportResponse
+    {
+        $json = $this->aiClient->diagnosisSupport($mediaAnalyzerArguments);
+        $response = DiagnosisSupportResponse::createFromJson($mediaAnalyzerArguments, $json);
 
         return $response;
     }

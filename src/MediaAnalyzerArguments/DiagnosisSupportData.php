@@ -7,10 +7,17 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 
-final readonly class PredictData extends MediaAnalyzerData
+final readonly class DiagnosisSupportData extends MediaAnalyzerData
 {
+    /**
+     * @param string[] $content
+     * @param BodySiteCode|null $bodySiteCode
+     * @param Operator|null $operator
+     * @param Subject|null $subject
+     * @param View|null $view
+     */
     public function __construct(
-        string $content,
+        array $content,
         ?BodySiteCode $bodySiteCode = null,
         ?Operator $operator = null,
         ?Subject $subject = null,

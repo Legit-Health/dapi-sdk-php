@@ -9,7 +9,7 @@ use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
 use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 
-final class FollowUpData extends MediaAnalyzerData
+final readonly class FollowUpData extends MediaAnalyzerData
 {
     /**
      * @param string[] $scoringSystems

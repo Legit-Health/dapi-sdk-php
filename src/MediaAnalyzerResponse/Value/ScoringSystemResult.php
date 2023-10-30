@@ -1,17 +1,15 @@
 <?php
 
-namespace LegitHealth\Dapi\MediaAnalyzerResponse\ScoringSystem;
-
-use LegitHealth\Dapi\MediaAnalyzerResponse\ExplainabilityMedia;
+namespace LegitHealth\Dapi\MediaAnalyzerResponse\Value;
 
 final class ScoringSystemResult
 {
     /** @param array<string,FacetScore> $facetScores */
     public function __construct(
-        public readonly string $scoringSystemCode,
-        public readonly ScoringSystemScore $score,
-        public readonly array $facetScores,
-        public readonly ExplainabilityMedia $explainabilityMedia,
+        public string $scoringSystemCode,
+        public ScoringSystemScore $score,
+        public array $facetScores,
+        public ExplainabilityMedia $explainabilityMedia,
     ) {
     }
 

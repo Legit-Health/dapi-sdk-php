@@ -2,18 +2,18 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class ScoradLocalQuestionnaire extends Questionnaire
+readonly class ScoradLocalQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly float $surfaceValue,
-        public readonly int $erythema,
-        public readonly int $swelling,
-        public readonly int $crusting,
-        public readonly int $excoriation,
-        public readonly int $lichenification,
-        public readonly int $dryness,
-        public readonly int $itchinessScorad,
-        public readonly int $sleeplessness
+        public float $surfaceValue,
+        public int $erythema,
+        public int $swelling,
+        public int $crusting,
+        public int $excoriation,
+        public int $lichenification,
+        public int $dryness,
+        public int $itchinessScorad,
+        public  int $sleeplessness
     ) {
         $this->ensureIsInRange($surfaceValue, 0, 100, 'surfaceValue');
         $this->ensureIsInRange($erythema, 0, 3, 'erythema');

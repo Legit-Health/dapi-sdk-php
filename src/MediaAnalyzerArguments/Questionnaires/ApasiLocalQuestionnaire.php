@@ -2,9 +2,9 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class ApasiLocalQuestionnaire extends Questionnaire
+readonly class ApasiLocalQuestionnaire extends Questionnaire
 {
-    public function __construct(public readonly int $surface)
+    public function __construct(public int $surface)
     {
         $this->ensureIsInRange($surface, 0, 6, 'surface');
     }

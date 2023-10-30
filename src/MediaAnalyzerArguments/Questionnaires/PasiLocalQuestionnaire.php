@@ -2,13 +2,13 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class PasiLocalQuestionnaire extends Questionnaire
+readonly class PasiLocalQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $surface,
-        public readonly int $erythema,
-        public readonly int $induration,
-        public readonly int $desquamation
+        public int $surface,
+        public int $erythema,
+        public int $induration,
+        public int $desquamation
     ) {
         $this->ensureIsInRange($surface, 0, 6, 'surface');
         $this->ensureIsInRange($erythema, 0, 4, 'erythema');

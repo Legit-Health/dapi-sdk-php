@@ -6,7 +6,7 @@ Official SDK for integrate with the Dermatology API offered by Legit.Health 🩺
 
 If you want to start sending requests to Legit.Health's Dermatology API, you have to create an instance of the class `LegitHealth\Dapi\MediaAnalyzer`. It requires two arguments:
 
-- The URL of the API. The preproduction enviroment uses the following value: `https://ia-pre.legit.health:8443/v2/legit_health/predict`.
+- The URL of the API. The preproduction enviroment uses the following value: `https://ai-pre.legit.health`.
 - The API Key we have provided to you. Without it, you won't be able to send requests to the API.
 
 The class `MediaAnalyzer` exposes two methods:

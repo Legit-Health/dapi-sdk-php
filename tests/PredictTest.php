@@ -52,7 +52,7 @@ class PredictTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
@@ -103,18 +103,15 @@ class PredictTest extends TestCase
         $this->assertFalse($mediaValidity->isValid);
         $this->assertGreaterThan(0, $mediaValidity->diqaScore);
         $failedMetric = $mediaValidity->getFailedValidityMetric();
-        $this->assertEquals('hasEnoughQuality', $failedMetric->name);
+        $this->assertEquals('isDermatologyDomain', $failedMetric->name);
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 
         $this->assertNotNull($response->explainabilityMedia);
 
         $this->assertCount(0, $response->scoringSystemsResults);
-
-        $this->assertCount(0, $response->conclusions);
-
         $this->assertGreaterThan(0, $response->iaSeconds);
     }
 
@@ -166,7 +163,7 @@ class PredictTest extends TestCase
             $this->assertNotEmpty($validityMetric->name);
         }
 
-        $metrics = $response->metricsValue;
+        $metrics = $response->metrics;
         $this->assertGreaterThan(0, $metrics->sensitivity);
         $this->assertGreaterThan(0, $metrics->specificity);
 

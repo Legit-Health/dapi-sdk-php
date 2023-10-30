@@ -2,12 +2,12 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class Ihs4LocalQuestionnaire extends Questionnaire
+readonly class Ihs4LocalQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $noduleNumber,
-        public readonly int $abscesseNumber,
-        public readonly int $drainingTunnelNumber
+        public int $noduleNumber,
+        public int $abscesseNumber,
+        public int $drainingTunnelNumber
     ) {
     }
 

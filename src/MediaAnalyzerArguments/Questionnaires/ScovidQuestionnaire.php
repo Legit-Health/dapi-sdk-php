@@ -2,19 +2,19 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires;
 
-class ScovidQuestionnaire extends Questionnaire
+readonly class ScovidQuestionnaire extends Questionnaire
 {
     public function __construct(
-        public readonly int $pain,
-        public readonly int $itchinessScorad,
-        public readonly int $fever,
-        public readonly int $cough,
-        public readonly int $cephalea,
-        public readonly int $myalgiaorarthralgia,
-        public readonly int $malaise,
-        public readonly int $lossoftasteorolfactory,
-        public readonly int $shortnessofbreath,
-        public readonly int $otherskinproblems,
+        public int $pain,
+        public int $itchinessScorad,
+        public int $fever,
+        public int $cough,
+        public int $cephalea,
+        public int $myalgiaorarthralgia,
+        public int $malaise,
+        public int $lossoftasteorolfactory,
+        public int $shortnessofbreath,
+        public int $otherskinproblems,
     ) {
         $this->ensureIsInRange($pain, 0, 10, 'pain');
         $this->ensureIsInRange($itchinessScorad, 0, 10, 'itchinessScorad');
