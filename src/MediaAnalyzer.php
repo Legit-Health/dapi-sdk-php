@@ -24,6 +24,9 @@ final class MediaAnalyzer
         return new self(AiClient::createWithHttpClient($httpClient));
     }
 
+    /**
+     * @deprecated 6.0
+     */
     public function predict(MediaAnalyzerArguments $mediaAnalyzerArguments): MediaAnalyzerResponse
     {
         $json = $this->aiClient->predict($mediaAnalyzerArguments);
