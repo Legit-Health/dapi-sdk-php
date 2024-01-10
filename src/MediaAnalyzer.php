@@ -2,7 +2,8 @@
 
 namespace LegitHealth\Dapi;
 
-use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\SeverityAssessmentArguments;
 use LegitHealth\Dapi\MediaAnalyzerResponse\{DiagnosisSupportResponse, SeverityAssessmentResponse};
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -24,18 +25,18 @@ final class MediaAnalyzer
         return new self(AiClient::createWithHttpClient($httpClient));
     }
 
-    public function severityAssessment(MediaAnalyzerArguments $mediaAnalyzerArguments): SeverityAssessmentResponse
+    public function severityAssessment(SeverityAssessmentArguments $arguments): SeverityAssessmentResponse
     {
-        $json = $this->aiClient->severityAssessment($mediaAnalyzerArguments);
+        $json = $this->aiClient->severityAssessment($arguments);
         $response = SeverityAssessmentResponse::createFromJson($json);
 
         return $response;
     }
 
-    public function diagnosisSupport(MediaAnalyzerArguments $mediaAnalyzerArguments): DiagnosisSupportResponse
+    public function diagnosisSupport(DiagnosisSupportArguments $arguments): DiagnosisSupportResponse
     {
-        $json = $this->aiClient->diagnosisSupport($mediaAnalyzerArguments);
-        $response = DiagnosisSupportResponse::createFromJson($mediaAnalyzerArguments, $json);
+        $json = $this->aiClient->diagnosisSupport($arguments);
+        $response = DiagnosisSupportResponse::createFromJson($arguments, $json);
 
         return $response;
     }

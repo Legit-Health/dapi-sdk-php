@@ -2,7 +2,7 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerResponse;
 
-use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportArguments;
 use LegitHealth\Dapi\MediaAnalyzerResponse\Value\{
     Conclusion,
     ConclusionCode,
@@ -29,7 +29,7 @@ final readonly class DiagnosisSupportResponse
     ) {
     }
 
-    public static function createFromJson(MediaAnalyzerArguments $mediaAnalyzerArguments, array $json): self
+    public static function createFromJson(DiagnosisSupportArguments $mediaAnalyzerArguments, array $json): self
     {
         $preliminaryFindings = new PreliminaryFindingsValue(
             $json['preliminaryFindings']['hasConditionSuspicion'],
