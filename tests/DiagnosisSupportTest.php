@@ -6,17 +6,15 @@ use DateTimeImmutable;
 use Dotenv\Dotenv;
 use LegitHealth\Dapi\MediaAnalyzer;
 use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
-use LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportData;
-use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
+use LegitHealth\Dapi\MediaAnalyzerArguments\{DiagnosisSupportData, DiagnosisSupportArguments};
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\{Company, Gender, Subject};
 use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportArguments as MediaAnalyzerArgumentsDiagnosisSupportArguments;
 use PHPUnit\Framework\TestCase;
 
 class DiagnosisSupportTest extends TestCase
 {
-    public function testBasePredict()
+    public function testBaseDiagnosisSupport()
     {
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
@@ -42,8 +40,8 @@ class DiagnosisSupportTest extends TestCase
                 base64_encode($image3)
             ]
         );
-        $mediaAnalyzerArguments = new MediaAnalyzerArguments($this->generateRandom(), $diagnosisSupportData);
-        $response = $mediaAnalyzer->diagnosisSupport($mediaAnalyzerArguments);
+        $diagnosisSupportArguments = new DiagnosisSupportArguments($this->generateRandom(), $diagnosisSupportData);
+        $response = $mediaAnalyzer->diagnosisSupport($diagnosisSupportArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -101,7 +99,7 @@ class DiagnosisSupportTest extends TestCase
         $this->assertGreaterThan(0, $response->iaSeconds);
     }
 
-    public function testPredictWithAllFields()
+    public function testDiagnosisSupportWithAllFields()
     {
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
@@ -138,8 +136,8 @@ class DiagnosisSupportTest extends TestCase
                 new Company($this->generateRandom(), 'Company Name')
             )
         );
-        $mediaAnalyzerArguments = new MediaAnalyzerArguments($this->generateRandom(), $diagnosisSupportData);
-        $response = $mediaAnalyzer->diagnosisSupport($mediaAnalyzerArguments);
+        $diagnosisSupportArguments = new DiagnosisSupportArguments($this->generateRandom(), $diagnosisSupportData);
+        $response = $mediaAnalyzer->diagnosisSupport($diagnosisSupportArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -215,7 +213,7 @@ class DiagnosisSupportTest extends TestCase
 
         $image3 = file_get_contents($fileToUpload);
 
-        $predictData = new DiagnosisSupportData(
+        $diagnosisSupportData = new DiagnosisSupportData(
             content: [
                 base64_encode($image1),
                 base64_encode($image2),
@@ -223,9 +221,9 @@ class DiagnosisSupportTest extends TestCase
             ]
         );
 
-        $mediaAnalyzerArguments = new MediaAnalyzerArguments($this->generateRandom(), $predictData);
+        $diagnosisSupportArguments = new MediaAnalyzerArgumentsDiagnosisSupportArguments($this->generateRandom(), $diagnosisSupportData);
 
-        $response = $mediaAnalyzer->diagnosisSupport($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->diagnosisSupport($diagnosisSupportArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);

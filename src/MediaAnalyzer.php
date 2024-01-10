@@ -3,7 +3,7 @@
 namespace LegitHealth\Dapi;
 
 use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
-use LegitHealth\Dapi\MediaAnalyzerResponse\{DiagnosisSupportResponse, MediaAnalyzerResponse};
+use LegitHealth\Dapi\MediaAnalyzerResponse\{DiagnosisSupportResponse, SeverityAssessmentResponse};
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class MediaAnalyzer
@@ -24,21 +24,10 @@ final class MediaAnalyzer
         return new self(AiClient::createWithHttpClient($httpClient));
     }
 
-    /**
-     * @deprecated 6.0
-     */
-    public function predict(MediaAnalyzerArguments $mediaAnalyzerArguments): MediaAnalyzerResponse
+    public function severityAssessment(MediaAnalyzerArguments $mediaAnalyzerArguments): SeverityAssessmentResponse
     {
-        $json = $this->aiClient->predict($mediaAnalyzerArguments);
-        $response = MediaAnalyzerResponse::createFromJson($json);
-
-        return $response;
-    }
-
-    public function followUp(MediaAnalyzerArguments $mediaAnalyzerArguments): MediaAnalyzerResponse
-    {
-        $json = $this->aiClient->followUp($mediaAnalyzerArguments);
-        $response = MediaAnalyzerResponse::createFromJson($json);
+        $json = $this->aiClient->severityAssessment($mediaAnalyzerArguments);
+        $response = SeverityAssessmentResponse::createFromJson($json);
 
         return $response;
     }

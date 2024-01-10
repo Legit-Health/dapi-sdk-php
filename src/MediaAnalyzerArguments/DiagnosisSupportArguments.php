@@ -2,11 +2,11 @@
 
 namespace LegitHealth\Dapi\MediaAnalyzerArguments;
 
-readonly class MediaAnalyzerArguments
+readonly class DiagnosisSupportArguments implements MediaAnalyzerArguments
 {
     public function __construct(
         public string $requestId,
-        public MediaAnalyzerData $data,
+        public DiagnosisSupportData $data,
         public OrderDetail $orderDetail = new OrderDetail()
     ) {
     }

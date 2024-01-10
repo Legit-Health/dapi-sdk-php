@@ -2,36 +2,36 @@
 
 namespace LegitHealth\Dapi\Tests;
 
-use DateTimeImmutable;
-use Dotenv\Dotenv;
+
 use LegitHealth\Dapi\MediaAnalyzer;
 use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
-use LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpData;
-use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\{MediaAnalyzerArguments, OrderDetail};
 use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
-use LegitHealth\Dapi\MediaAnalyzerArguments\OrderDetail;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\ApasiLocalQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\AscoradLocalQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\AuasLocalQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\DlqiQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Ihs4LocalQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\PasiLocalQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Pure4Questionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\SevenPCQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\UasLocalQuestionnaire;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Company;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Gender;
-use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\Subject;
+use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\{
+    ApasiLocalQuestionnaire,
+    AscoradLocalQuestionnaire,
+    AuasLocalQuestionnaire,
+    DlqiQuestionnaire,
+    Ihs4LocalQuestionnaire,
+    PasiLocalQuestionnaire,
+    Pure4Questionnaire,
+    Questionnaire,
+    Questionnaires,
+    SevenPCQuestionnaire,
+    UasLocalQuestionnaire
+};
+use LegitHealth\Dapi\MediaAnalyzerArguments\{SeverityAssessmentArguments, SeverityAssessmentData};
+use LegitHealth\Dapi\MediaAnalyzerArguments\Subject\{Company, Gender, Subject};
 use LegitHealth\Dapi\MediaAnalyzerArguments\View\View;
 use LegitHealth\Dapi\MediaAnalyzerResponse\Value\DetectionLabel;
+use Dotenv\Dotenv;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
-class FollowUpTest extends TestCase
+class SeverityAssessmentTest extends TestCase
 {
-    public function testPsoriasisFollowUp()
+    public function testPsoriasisSeverityAssessment()
     {
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
@@ -55,7 +55,7 @@ class FollowUpTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$apasiLocal, $pasiLocal, $pure4, $dlqi]);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Psoriasis',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -76,12 +76,12 @@ class FollowUpTest extends TestCase
             questionnaires: $questionnaires
         );
 
-        $mediaAnalyzerArguments = new MediaAnalyzerArguments(
+        $mediaAnalyzerArguments = new SeverityAssessmentArguments(
             $this->generateRandom(),
-            $followUpData
+            $severityAssessmentData
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -312,7 +312,7 @@ class FollowUpTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$dlqi]);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Acne',
             bodySiteCode: BodySiteCode::HeadFront,
@@ -335,10 +335,10 @@ class FollowUpTest extends TestCase
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(
             $this->generateRandom(),
-            $followUpData
+            $severityAssessmentData
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -452,7 +452,7 @@ class FollowUpTest extends TestCase
         $fileToUpload = $currentDir . '/tests/resources/acne_face.jpg';
         $image = file_get_contents($fileToUpload);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Acne',
             bodySiteCode: BodySiteCode::HeadFront,
@@ -474,11 +474,11 @@ class FollowUpTest extends TestCase
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(
             $this->generateRandom(),
-            $followUpData,
+            $severityAssessmentData,
             new OrderDetail(faceDetection: true)
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -569,7 +569,7 @@ class FollowUpTest extends TestCase
         $fileToUpload = $currentDir . '/tests/resources/acne_face.jpg';
         $image = file_get_contents($fileToUpload);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Acne',
             bodySiteCode: BodySiteCode::HeadFront,
@@ -591,11 +591,11 @@ class FollowUpTest extends TestCase
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(
             $this->generateRandom(),
-            $followUpData,
+            $severityAssessmentData,
             new OrderDetail(faceDetection: true)
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -672,7 +672,7 @@ class FollowUpTest extends TestCase
         }
     }
 
-    public function testUrticariaFollowUp()
+    public function testUrticariaSeverityAssessment()
     {
         $currentDir = getcwd();
         $dotenv = Dotenv::createImmutable($currentDir, '.env.local');
@@ -693,7 +693,7 @@ class FollowUpTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$auasLocal, $uasLocal, $dlqi]);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Hives urticaria',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -714,10 +714,10 @@ class FollowUpTest extends TestCase
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(
             $this->generateRandom(),
-            $followUpData
+            $severityAssessmentData
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -849,7 +849,7 @@ class FollowUpTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$ascoradLocal, $dlqi]);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Atopic dermatitis',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -870,10 +870,10 @@ class FollowUpTest extends TestCase
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(
             $this->generateRandom(),
-            $followUpData
+            $severityAssessmentData
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -1079,7 +1079,7 @@ class FollowUpTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$ihs4Local, $dlqi]);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Hidradenitis suppurativa',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -1100,10 +1100,10 @@ class FollowUpTest extends TestCase
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(
             $this->generateRandom(),
-            $followUpData
+            $severityAssessmentData
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);
@@ -1219,7 +1219,7 @@ class FollowUpTest extends TestCase
         $sevenPC = new SevenPCQuestionnaire(1, 1, 1, 0, 0, 0, 1);
         $questionnaires = new Questionnaires([$sevenPC]);
 
-        $followUpData = new FollowUpData(
+        $severityAssessmentData = new SeverityAssessmentData(
             content: base64_encode($image),
             pathologyCode: 'Atypical nevus',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -1242,10 +1242,10 @@ class FollowUpTest extends TestCase
 
         $mediaAnalyzerArguments = new MediaAnalyzerArguments(
             $this->generateRandom(),
-            $followUpData
+            $severityAssessmentData
         );
 
-        $response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+        $response = $mediaAnalyzer->severityAssessment($mediaAnalyzerArguments);
 
         $preliminaryFindings = $response->preliminaryFindings;
         $this->assertGreaterThanOrEqual(0, $preliminaryFindings->hasConditionSuspicion);

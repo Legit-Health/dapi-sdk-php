@@ -13,7 +13,7 @@ use LegitHealth\Dapi\MediaAnalyzerResponse\Value\{
     ValidityMetric
 };
 
-final readonly class MediaAnalyzerResponse
+final readonly class SeverityAssessmentResponse
 {
     /**
      * @param ScoringSystemResult[] $scoringSystemsResults

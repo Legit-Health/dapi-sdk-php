@@ -11,10 +11,6 @@ final readonly class DiagnosisSupportData extends MediaAnalyzerData
 {
     /**
      * @param string[] $content
-     * @param BodySiteCode|null $bodySiteCode
-     * @param Operator|null $operator
-     * @param Subject|null $subject
-     * @param View|null $view
      */
     public function __construct(
         array $content,

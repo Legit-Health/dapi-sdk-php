@@ -2,14 +2,16 @@
 
 namespace LegitHealth\Dapi;
 
+use LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportArguments;
 use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\SeverityAssessmentArguments;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;
 
 final class AiClient
 {
-    private const PREDICT_ENDPOINT = '/v2/legit_health/predict';
+    private const SEVERITY_ASSESSMENT = '/v2/legit_health/severity_assessment';
     private const DIAGNOSIS_SUPPORT_ENDPOINT = '/v2/legit_health/diagnosis_support';
 
     public function __construct(private HttpClientInterface $httpClient)
@@ -35,23 +37,15 @@ final class AiClient
     /**
      * @throws MediaAnalyzerException
      */
-    public function predict(MediaAnalyzerArguments $arguments): array
+    public function severityAssessment(DiagnosisSupportArguments $arguments): array
     {
-        return $this->send($arguments, self::PREDICT_ENDPOINT);
+        return $this->send($arguments, self::SEVERITY_ASSESSMENT);
     }
 
     /**
      * @throws MediaAnalyzerException
      */
-    public function followUp(MediaAnalyzerArguments $arguments): array
-    {
-        return $this->send($arguments, self::PREDICT_ENDPOINT);
-    }
-
-    /**
-     * @throws MediaAnalyzerException
-     */
-    public function diagnosisSupport(MediaAnalyzerArguments $arguments): array
+    public function diagnosisSupport(SeverityAssessmentArguments $arguments): array
     {
         return $this->send($arguments, self::DIAGNOSIS_SUPPORT_ENDPOINT);
     }

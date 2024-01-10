@@ -11,17 +11,17 @@ If you want to start sending requests to Legit.Health's Dermatology API, you hav
 
 The class `MediaAnalyzer` exposes two methods:
 
-- `predict`, to send a predict request to the API, in case you need to analyze an image to obtain the probability of the detected pathologies.
+- `diagnosisSupport`, to send a diagnosis support request to the API, in case you need to analyze a set of images to obtain the probability of the detected pathologies.
 
-- `followUp`, to send a follow up request to get the evolution information about a diagnosed image.
+- `severityAssessment`, to send a severity assessment up request to get the evolution information about a diagnosed image.
 
-## Predict requests
+## Diagnosis support requests
 
-The `predict` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments`. The constructor of this class receives an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\PredictData`, in which you can specify the image itself and information about the patient or the body site:
+The `diagnosisSupport` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportArguments`. The constructor of this class receives an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportData`, in which you can specify the image itself and information about the patient or the body site:
 
 ```php
-$predictData = new PredictData(
-    content: base64_encode($image),
+$diagnosisSupportData = new DiagnosisSupportData(
+    content: [base64_encode($image1), base64_encode($image2)],
     bodySiteCode: BodySiteCode::ArmLeft,
     operator: Operator::Patient,
     subject: new Subject(
@@ -36,38 +36,36 @@ $predictData = new PredictData(
 );
 ```
 
-Once you've created a `PredictData` object, you can send the request in this way:
+Once you've created a `DiagnosisSupportData` object, you can send the request in this way:
 
 ```php
-$mediaAnalyzerArguments = new MediaAnalyzerArguments('random id', $predictData)
+$diagnosisSupportArguments = new DiagnosisSupportArguments('random id', $diagnosisSupportData)
 $mediaAnalyzer = new MediaAnalyzer(
     $apiUrl,
     $apiKey
 );
-$response = $mediaAnalyzer->predict($mediaAnalyzerArguments);
+$response = $mediaAnalyzer->diagnosisSupport($diagnosisSupportArguments);
 ```
 
 The response object contains several properties with the information returned by the API about the analyzed image:
 
 - `preliminaryFindings` is an object of the class `LegitHealth\Dapi\MediaAnalyzerResponse\PreliminaryFindingsValue` with the probability of the different suspicions that the algorithm has about the image.
 
-- `modality` is the modality of the image detected.
-
-- `mediaValidity` is an object that contains information about whether the image sent contains relevant dermatological information
-
-- `metricsValue` contains the sensitivity and specificity values.
+- `metrics` contains the sensitivity and specificity values.
 
 - `conclusions` is an array of `Conclusion` objects with the detected pathologies and its probability. The total probability is distributed among each of the pathologies detected.
 
+- `observations` is an array of `Observation` objects with the conclusions of the algorithm for each image including its related metrics and preliminary findings.
+
 - `iaSeconds` is the time spent by the algorithms analyzying the image.
 
-## Follow up requests
+## Severity assessment requests
 
-The `followUp` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments`. The constructor of this class receives an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpData`, in which can specify the image itself and information about a well known condition.
+The `severityAssessment` method of our `MediaAnalyzer` class receives one argument of the class `LegitHealth\Dapi\MediaAnalyzerArguments\SeverityAssessmentArguments`. The constructor of this class receives an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\SeverityAssessmentData`, in which can specify the image itself and information about a well known condition.
 
-### Example. Follow up request for psoriasis
+### Example. Severity assessment request for psoriasis
 
-Let's see how to send a follow-up request for a patient diagnosed with psoriasis.
+Let's see how to send a severity assessment request for a patient diagnosed with psoriasis.
 
 Firstly, we will create the different objects that represents the questionnaires used to track the evolution of psoriasis:
 
@@ -87,10 +85,10 @@ $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
 $questionnaires = new Questionnaires([$apasiLocal, $pasiLocal, $pure4, $dlqi]);
 ```
 
-Then, we will create an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\FollowUpArguments`:
+Then, we will create an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\SeverityAssessmentData`:
 
 ```php
-$followUpData = new FollowUpData(
+$data = new SeverityAssessmentData(
     content: base64_encode($image),
     pathologyCode: 'Psoriasis',
     bodySiteCode: BodySiteCode::ArmLeft,
@@ -113,7 +111,7 @@ $followUpData = new FollowUpData(
 );
 ```
 
-Unlike diagnostic support requests, follow-up requests supports the following additional arguments:
+Unlike diagnostic support requests, severity assessment requests supports the following additional arguments:
 
 - `previousMedias` is an array of objects of the class `PreviousMedia` with a list of previous images taken of the current pathology.
 
@@ -125,15 +123,15 @@ Unlike diagnostic support requests, follow-up requests supports the following ad
 
 - `questionnaires` is an object of the class `LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\Questionnaires` with the values of the scoring systems to be evaluated.
 
-Once you've created a `FollowUpData` object, you can send the request in this way:
+Once you've created a `SeverityAssessmentData` object, you can send the request in this way:
 
 ```php
 $mediaAnalyzer = new MediaAnalyzer(
     $apiUrl,
     $apiKey
 );
-$mediaAnalyzerArguments = new MediaAnalyzerArguments('identifier of the request', $followUpData);
-$response = $mediaAnalyzer->followUp($mediaAnalyzerArguments);
+$severityAssessmentArguments = new SeverityAssessmentArguments('identifier of the request', $data);
+$response = $mediaAnalyzer->severityAssessment($severityAssessmentArguments);
 ```
 
 The response object contains several properties with the information returned by the API about the analyzed image:
@@ -194,20 +192,20 @@ $desquamationIntensity = $desquamation->intensity; // A value between 0 and 100 
 
 ## Detecting faces
 
-In some cases, you may want to enable the feature of the algorithm capable of detecting faces. In this case, **a metric called `pxToCm` is returned** allowing to get the ratio of conversion from pixels to centimeters. This feature works for both predict and follow up requests.
+In some cases, you may want to enable the feature of the algorithm capable of detecting faces. In this case, **a metric called `pxToCm` is returned** allowing to get the ratio of conversion from pixels to centimeters. This feature works for both diagnosis support and severity assessment requests.
 
-For example, if you are working with a `PredictData` object, you can send the request in this way:
+For example, if you are working with a `DiagnosisSupportData` object, you can send the request in this way:
 
 ```php
 // ...
 use LegitHealth\Dapi\MediaAnalyzerArguments\OrderDetail;
 // ...
-$mediaAnalyzerArguments = new MediaAnalyzerArguments('random id', $predictData, new OrderDetail(true))
+$mediaAnalyzerArguments = new MediaAnalyzerArguments('random id', $data, new OrderDetail(true))
 $mediaAnalyzer = new MediaAnalyzer(
     $apiUrl,
     $apiKey
 );
-$response = $mediaAnalyzer->predict($mediaAnalyzerArguments);
+$response = $mediaAnalyzer->diagnosisSupport($mediaAnalyzerArguments);
 ```
 
 If the algorithm detects a face and can calculate the ratio from pixels to centimeters, the property `metrics` of the `explainabilityMedia` will get a value different of `null` 
