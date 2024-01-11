@@ -2,16 +2,14 @@
 
 namespace LegitHealth\Dapi;
 
-use LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportArguments;
-use LegitHealth\Dapi\MediaAnalyzerArguments\MediaAnalyzerArguments;
-use LegitHealth\Dapi\MediaAnalyzerArguments\SeverityAssessmentArguments;
+use LegitHealth\Dapi\MediaAnalyzerArguments\{DiagnosisSupportArguments, MediaAnalyzerArguments, SeverityAssessmentArguments};
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;
 
 final class AiClient
 {
-    private const SEVERITY_ASSESSMENT = '/v2/legit_health/predict';
+    private const SEVERITY_ASSESSMENT = '/v2/legit_health/severity_assessment';
     private const DIAGNOSIS_SUPPORT_ENDPOINT = '/v2/legit_health/diagnosis_support';
 
     public function __construct(private HttpClientInterface $httpClient)
