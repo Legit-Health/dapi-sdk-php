@@ -9,7 +9,7 @@ use Throwable;
 
 final class AiClient
 {
-    private const SEVERITY_ASSESSMENT = '/v2/legit_health/severity_assessment';
+    private const SEVERITY_ASSESSMENT = '/v2/legit_health/predict';
     private const DIAGNOSIS_SUPPORT_ENDPOINT = '/v2/legit_health/diagnosis_support';
 
     public function __construct(private HttpClientInterface $httpClient)
