@@ -6,7 +6,7 @@ readonly class ScovidQuestionnaire extends Questionnaire
 {
     public function __construct(
         public int $pain,
-        public int $itchinessScorad,
+        public int $itchinessScovid,
         public int $fever,
         public int $cough,
         public int $cephalea,
@@ -17,7 +17,7 @@ readonly class ScovidQuestionnaire extends Questionnaire
         public int $otherskinproblems,
     ) {
         $this->ensureIsInRange($pain, 0, 10, 'pain');
-        $this->ensureIsInRange($itchinessScorad, 0, 10, 'itchinessScorad');
+        $this->ensureIsInRange($itchinessScovid, 0, 10, 'itchinessScovid');
         $this->ensureIsInRange($fever, 0, 3, 'fever');
         $this->ensureIsInRange($cough, 0, 3, 'cough');
         $this->ensureIsInRange($cephalea, 0, 3, 'cephalea');
@@ -37,7 +37,7 @@ readonly class ScovidQuestionnaire extends Questionnaire
     {
         return [
             'pain' => $this->pain,
-            'itchinessScorad' => $this->itchinessScorad,
+            'itchinessScovid' => $this->itchinessScovid,
             'fever' => $this->fever,
             'cough' => $this->cough,
             'cephalea' => $this->cephalea,
