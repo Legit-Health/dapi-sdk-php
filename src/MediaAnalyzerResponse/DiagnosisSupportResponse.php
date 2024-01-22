@@ -41,11 +41,11 @@ final readonly class DiagnosisSupportResponse
 
         $metrics = new MetricsValue($json['metrics']['sensitivity'], $json['metrics']['specificity']);
 
-        $conclusions = [];
+        $finalConclusions = [];
         if (isset($json['conclusions'])) {
             foreach ($json['conclusions'] as $singleConclusion) {
                 if (isset($singleConclusion['name'])) {
-                    $conclusions[] = new Conclusion(
+                    $finalConclusions[] = new Conclusion(
                         $singleConclusion['name'],
                         $singleConclusion['probability'],
                         new ConclusionCode(
@@ -103,7 +103,7 @@ final readonly class DiagnosisSupportResponse
         return new self(
             $preliminaryFindings,
             $metrics,
-            $conclusions,
+            $finalConclusions,
             $observations,
             $iaSeconds
         );
