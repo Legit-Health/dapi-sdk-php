@@ -4,6 +4,7 @@ namespace LegitHealth\Dapi\MediaAnalyzerResponse;
 
 use LegitHealth\Dapi\MediaAnalyzerResponse\Value\{
     Conclusion,
+    ConclusionCode,
     ExplainabilityMedia,
     MediaValidity,
     MetricsValue,
@@ -12,10 +13,11 @@ use LegitHealth\Dapi\MediaAnalyzerResponse\Value\{
     ValidityMetric
 };
 
-final readonly class SeverityAssessmentResponse
+final readonly class PredictResponse
 {
     /**
      * @param ScoringSystemResult[] $scoringSystemsResults
+     * @param Conclusion[] $conclusions
      */
     public function __construct(
         public PreliminaryFindingsValue $preliminaryFindings,
@@ -24,6 +26,7 @@ final readonly class SeverityAssessmentResponse
         public MetricsValue $metrics,
         public ?ExplainabilityMedia $explainabilityMedia,
         public array $scoringSystemsResults,
+        public array $conclusions,
         public float $iaSeconds
     ) {
     }
@@ -58,6 +61,22 @@ final readonly class SeverityAssessmentResponse
             }
         }
 
+        $conclusions = [];
+        if (isset($json['conclusions'])) {
+            foreach ($json['conclusions'] as $singleConclusion) {
+                if (isset($singleConclusion['name'])) {
+                    $conclusions[] = new Conclusion(
+                        $singleConclusion['name'],
+                        $singleConclusion['probability'],
+                        new ConclusionCode(
+                            $singleConclusion['code']['code'],
+                            $singleConclusion['code']['codeSystem']
+                        )
+                    );
+                }
+            }
+        }
+
 
         $iaSeconds = $json['time'];
 
@@ -68,6 +87,7 @@ final readonly class SeverityAssessmentResponse
             $metrics,
             $explainabilityMedia,
             $scoringSystemsResults,
+            $conclusions,
             $iaSeconds
         );
     }
@@ -80,6 +100,14 @@ final readonly class SeverityAssessmentResponse
             }
         }
         return null;
+    }
+
+    /**
+     * @return Conclusion[]
+     */
+    public function getPossibleConclusions(): array
+    {
+        return array_filter($this->conclusions, fn (Conclusion $conclusion) => $conclusion->isPossible());
     }
 
     public function getFailedValidityMetric(): ?ValidityMetric

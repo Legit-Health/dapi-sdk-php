@@ -2,14 +2,15 @@
 
 namespace LegitHealth\Dapi;
 
-use LegitHealth\Dapi\MediaAnalyzerArguments\{DiagnosisSupportArguments, MediaAnalyzerArguments, SeverityAssessmentArguments};
+use LegitHealth\Dapi\MediaAnalyzerArguments\{DiagnosisSupportArguments, MediaAnalyzerArguments, PredictArguments, SeverityAssessmentArguments};
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;
 
 final class AiClient
 {
-    private const SEVERITY_ASSESSMENT = '/v2/legit_health/predict';
+    private const SEVERITY_ASSESSMENT = '/v2/legit_health/severity_assessment';
+    private const PREDICT = '/v2/legit_health/predict';
     private const DIAGNOSIS_SUPPORT_ENDPOINT = '/v2/legit_health/diagnosis_support';
 
     public function __construct(private HttpClientInterface $httpClient)
@@ -38,6 +39,15 @@ final class AiClient
     public function severityAssessment(SeverityAssessmentArguments $arguments): array
     {
         return $this->send($arguments, self::SEVERITY_ASSESSMENT);
+    }
+
+    /**
+     * @throws MediaAnalyzerException
+     * @deprecated
+     */
+    public function predict(PredictArguments $arguments): array
+    {
+        return $this->send($arguments, self::PREDICT);
     }
 
     /**

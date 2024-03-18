@@ -242,9 +242,9 @@ class DiagnosisSupportTest extends TestCase
         $failedMedias = $response->getIndexOfFailedMedias();
         $this->assertCount(2, $failedMedias);
         $this->assertEquals(0, $failedMedias[0]->index);
-        $this->assertEquals('isDermatologyDomain', $failedMedias[0]->failedMetric->name);
+        $this->assertEquals('hasEnoughQuality', $failedMedias[0]->failedMetric->name);
         $this->assertEquals(2, $failedMedias[1]->index);
-        $this->assertEquals('isDermatologyDomain', $failedMedias[1]->failedMetric->name);
+        $this->assertEquals('hasEnoughQuality', $failedMedias[1]->failedMetric->name);
     }
 
     private function generateRandom($length = 15)

@@ -2,9 +2,8 @@
 
 namespace LegitHealth\Dapi;
 
-use LegitHealth\Dapi\MediaAnalyzerArguments\DiagnosisSupportArguments;
-use LegitHealth\Dapi\MediaAnalyzerArguments\SeverityAssessmentArguments;
-use LegitHealth\Dapi\MediaAnalyzerResponse\{DiagnosisSupportResponse, SeverityAssessmentResponse};
+use LegitHealth\Dapi\MediaAnalyzerArguments\{DiagnosisSupportArguments, PredictArguments, SeverityAssessmentArguments};
+use LegitHealth\Dapi\MediaAnalyzerResponse\{DiagnosisSupportResponse, PredictResponse, SeverityAssessmentResponse};
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class MediaAnalyzer
@@ -23,6 +22,17 @@ final class MediaAnalyzer
     public static function createWithHttpClient(HttpClientInterface $httpClient): self
     {
         return new self(AiClient::createWithHttpClient($httpClient));
+    }
+
+    /**
+     * @deprecated
+     */
+    public function predict(PredictArguments $arguments): PredictResponse
+    {
+        $json = $this->aiClient->predict($arguments);
+        $response = PredictResponse::createFromJson($json);
+
+        return $response;
     }
 
     public function severityAssessment(SeverityAssessmentArguments $arguments): SeverityAssessmentResponse
