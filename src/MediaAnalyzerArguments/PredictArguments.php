@@ -6,7 +6,7 @@ readonly class PredictArguments implements MediaAnalyzerArguments
 {
     public function __construct(
         public string $requestId,
-        public MediaAnalyzerData $data,
+        public PredictData $data,
         public OrderDetail $orderDetail = new OrderDetail()
     ) {
     }

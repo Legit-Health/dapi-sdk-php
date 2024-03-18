@@ -4,7 +4,7 @@ namespace LegitHealth\Dapi\Tests;
 
 use LegitHealth\Dapi\MediaAnalyzer;
 use LegitHealth\Dapi\MediaAnalyzerArguments\BodySite\BodySiteCode;
-use LegitHealth\Dapi\MediaAnalyzerArguments\{PredictArguments, OrderDetail, SeverityAssessmentData};
+use LegitHealth\Dapi\MediaAnalyzerArguments\{PredictArguments, OrderDetail, PredictData};
 use LegitHealth\Dapi\MediaAnalyzerArguments\Operator\Operator;
 use LegitHealth\Dapi\MediaAnalyzerArguments\PreviousMedia\PreviousMedia;
 use LegitHealth\Dapi\MediaAnalyzerArguments\Questionnaires\{
@@ -53,7 +53,7 @@ class PredictTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$apasiLocal, $pasiLocal, $pure4, $dlqi]);
 
-        $severityAssessmentData = new SeverityAssessmentData(
+        $severityAssessmentData = new PredictData(
             content: base64_encode($image),
             pathologyCode: 'Psoriasis',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -317,7 +317,7 @@ class PredictTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$dlqi]);
 
-        $severityAssessmentData = new SeverityAssessmentData(
+        $severityAssessmentData = new PredictData(
             content: base64_encode($image),
             pathologyCode: 'Acne',
             bodySiteCode: BodySiteCode::HeadFront,
@@ -464,7 +464,7 @@ class PredictTest extends TestCase
         $fileToUpload = $currentDir . '/tests/resources/acne_face.jpg';
         $image = file_get_contents($fileToUpload);
 
-        $severityAssessmentData = new SeverityAssessmentData(
+        $severityAssessmentData = new PredictData(
             content: base64_encode($image),
             pathologyCode: 'Acne',
             bodySiteCode: BodySiteCode::HeadFront,
@@ -614,7 +614,7 @@ class PredictTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$auasLocal, $uasLocal, $dlqi]);
 
-        $severityAssessmentData = new SeverityAssessmentData(
+        $severityAssessmentData = new PredictData(
             content: base64_encode($image),
             pathologyCode: 'Hives urticaria',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -777,7 +777,7 @@ class PredictTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$ascoradLocal, $dlqi]);
 
-        $severityAssessmentData = new SeverityAssessmentData(
+        $severityAssessmentData = new PredictData(
             content: base64_encode($image),
             pathologyCode: 'Atopic dermatitis',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -1014,7 +1014,7 @@ class PredictTest extends TestCase
         $dlqi = new DlqiQuestionnaire(1, 1, 2, 0, 0, 0, 1, 2, 2, 0);
         $questionnaires = new Questionnaires([$ihs4Local, $dlqi]);
 
-        $severityAssessmentData = new SeverityAssessmentData(
+        $severityAssessmentData = new PredictData(
             content: base64_encode($image),
             pathologyCode: 'Hidradenitis suppurativa',
             bodySiteCode: BodySiteCode::ArmLeft,
@@ -1161,7 +1161,7 @@ class PredictTest extends TestCase
         $sevenPC = new SevenPCQuestionnaire(1, 1, 1, 0, 0, 0, 1);
         $questionnaires = new Questionnaires([$sevenPC]);
 
-        $severityAssessmentData = new SeverityAssessmentData(
+        $severityAssessmentData = new PredictData(
             content: base64_encode($image),
             pathologyCode: 'Atypical nevus',
             bodySiteCode: BodySiteCode::ArmLeft,

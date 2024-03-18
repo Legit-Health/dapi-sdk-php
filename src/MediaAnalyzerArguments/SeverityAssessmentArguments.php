@@ -6,7 +6,7 @@ readonly class SeverityAssessmentArguments implements MediaAnalyzerArguments
 {
     public function __construct(
         public string $requestId,
-        public MediaAnalyzerData $data,
+        public SeverityAssessmentData $data,
         public OrderDetail $orderDetail = new OrderDetail()
     ) {
     }
