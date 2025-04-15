@@ -2,7 +2,7 @@
 
 namespace LegitHealth\Dapi;
 
-use LegitHealth\Dapi\MediaAnalyzerArguments\{DiagnosisSupportArguments, MediaAnalyzerArguments, PredictArguments, SeverityAssessmentArguments};
+use LegitHealth\Dapi\MediaAnalyzerArguments\{DiagnosisSupportArguments, MediaAnalyzerArguments, SeverityAssessmentArguments};
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;
