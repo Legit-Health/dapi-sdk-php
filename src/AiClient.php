@@ -9,8 +9,7 @@ use Throwable;
 
 final class AiClient
 {
-    private const SEVERITY_ASSESSMENT = '/v2/legit_health/severity_assessment';
-    private const PREDICT = '/v2/legit_health/predict';
+    private const SEVERITY_ASSESSMENT = 'severity_assessment';
     private const DIAGNOSIS_SUPPORT_ENDPOINT = 'diagnosis_support';
 
     public function __construct(private HttpClientInterface $httpClient) {}
@@ -39,14 +38,6 @@ final class AiClient
         return $this->send($arguments, self::SEVERITY_ASSESSMENT);
     }
 
-    /**
-     * @throws MediaAnalyzerException
-     * @deprecated
-     */
-    public function predict(PredictArguments $arguments): array
-    {
-        return $this->send($arguments, self::PREDICT);
-    }
 
     /**
      * @throws MediaAnalyzerException
